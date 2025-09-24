@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/favicons/favicon-16x16.png">
+    <link rel="manifest" href="assets/favicons/site.webmanifest">
+    <link rel="shortcut icon" href="assets/favicons/favicon.ico">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image to WebP Converter - WhizzyTools</title>
+    <meta name="description" content="Convert your JPG and PNG images to the modern, high-performance WebP format. Reduce file size without losing quality.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #111827;
+            --bg-secondary: #1F2937;
+            --text-primary: #F3F4F6;
+            --text-secondary: #9CA3AF;
+            --accent-color: #22D3EE;
+            --accent-hover: #67E8F9;
+        }
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Poppins', sans-serif;
+        }
+        .tool-button, .upload-label {
+            background-color: var(--accent-color);
+            color: var(--bg-primary);
+            font-weight: 600;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+        .tool-button:hover, .upload-label:hover {
+            background-color: var(--accent-hover);
+        }
+        .tool-button:disabled {
+            background-color: #374151;
+            color: var(--text-secondary);
+            cursor: not-allowed;
+        }
+        .secondary-button {
+            background-color: #374151;
+            color: var(--text-primary);
+        }
+        .secondary-button:hover {
+            background-color: #4B5563;
+        }
+        input[type=range] {
+            -webkit-appearance: none;
+            width: 100%;
+            background: transparent;
+        }
+        input[type=range]:focus {
+            outline: none;
+        }
+        input[type=range]::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 8px;
+            cursor: pointer;
+            background: #374151;
+            border-radius: 5px;
+        }
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 20px;
+            width: 20px;
+            border-radius: 50%;
+            background: var(--accent-color);
+            cursor: pointer;
+            margin-top: -6px;
+        }
+        .adsense-placeholder {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #374151;
+            border: 2px dashed #4B5563;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            border-radius: 0.5rem;
+            margin: 1.5rem auto;
+            width: 100%;
+            max-width: 728px;
+            min-height: 90px;
+        }
+        .adsense-mid-content {
+            max-width: 300px;
+            min-height: 250px;
+            margin-top: 1rem;
+        }
+        @media screen and (max-width: 768px) {
+            .adsense-placeholder {
+                max-width: 100%;
+                min-height: 50px;
+            }
+            .adsense-mid-content {
+                max-width: 300px;
+                min-height: 250px;
+            }
+        }
+        .mobile-menu {
+            transition: transform 0.3s ease-in-out;
+        }
+        .mobile-menu-open {
+            transform: translateX(0);
+        }
+        .mobile-menu-closed {
+            transform: translateX(100%);
+        }
+        #preview-image {
+            max-width: 100%;
+            max-height: 20rem;
+            height: auto;
+        }
+    </style>
+</head>
+<body class="antialiased">
+    <header class="py-4 px-4 sm:px-6 md:px-12 flex justify-between items-center sticky top-0 bg-opacity-80 backdrop-blur-md" style="background-color: rgba(17, 24, 39, 0.8);">
+        <a href="index.html" class="flex items-center gap-2 group">
+            <img src="assets/images/whizzytoolslogo.svg" alt="WhizzyTools Logo" class="w-8 h-8 group-hover:rotate-[-10deg] transition-transform duration-300">
+            <div class="text-2xl font-bold text-white">Whizzy<span class="text-[var(--accent-color)]">Tools</span></div>
+        </a>
+        <nav class="hidden md:flex items-center space-x-6 text-sm">
+            <a href="index.html" class="text-gray-300 hover:text-white transition">Home</a>
+            <a href="index.html#tools" class="text-gray-300 hover:text-white transition">All Tools</a>
+            <a href="about.html" class="text-gray-300 hover:text-white transition">About</a>
+            <a href="contact.html" class="text-gray-300 hover:text-white transition">Contact</a>
+        </nav>
+        <button id="mobile-menu-toggle" class="md:hidden text-white focus:outline-none">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+            </svg>
+        </button>
+        <a href="github-gateway.html" class="hidden md:inline-block px-4 py-2 text-sm font-semibold text-white rounded-md transition" style="background-color: var(--accent-color); color: var(--bg-primary);">GitHub</a>
+    </header>
+    <nav id="mobile-menu" class="mobile-menu mobile-menu-closed md:hidden fixed top-0 right-0 h-full w-64 bg-[var(--bg-secondary)] p-6 z-50">
+        <button id="mobile-menu-close" class="text-white mb-4 focus:outline-none">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+        </button>
+        <div class="flex flex-col space-y-4 text-sm">
+            <a href="index.html" class="text-gray-300 hover:text-white transition">Home</a>
+            <a href="index.html#tools" class="text-gray-300 hover:text-white transition">All Tools</a>
+            <a href="about.html" class="text-gray-300 hover:text-white transition">About</a>
+            <a href="contact.html" class="text-gray-300 hover:text-white transition">Contact</a>
+            <a href="github-gateway.html" class="text-gray-300 hover:text-white transition">GitHub</a>
+        </div>
+    </nav>
+    <main class="py-12 px-4 sm:px-6 flex-1">
+        <div class="text-center max-w-3xl mx-auto">
+            <h1 class="text-3xl sm:text-4xl font-bold tracking-tight">Image to WebP Converter</h1>
+            <p class="mt-4 text-base sm:text-lg" style="color: var(--text-secondary);">
+                Select your JPG or PNG image to instantly convert it to the high-performance WebP format. Your files are processed entirely in your browser.
+            </p>
+        </div>
+        <div class="adsense-placeholder adsense-top-banner mt-8"><span>Ad Space (Responsive)</span></div>
+        <div class="max-w-full sm:max-w-xl mx-auto mt-12 text-center bg-gray-800 p-6 sm:p-8 rounded-xl border border-gray-700">
+            <input type="file" id="image-input" class="hidden" accept="image/jpeg, image/png">
+            <label for="image-input" class="upload-label">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path>
+                </svg>
+                <span>Select Image</span>
+            </label>
+            <div id="result-container" class="hidden mt-6">
+                <p class="font-semibold mb-2">Image Preview:</p>
+                <img id="preview-image" src="#" alt="Image Preview" class="max-w-full max-h-80 mx-auto rounded-md mb-4 border-2 border-gray-600" style="height: auto;" />
+                <div id="controls-container" class="mt-6">
+                    <label for="quality-slider" class="flex justify-between font-medium">
+                        <span>Quality</span>
+                        <span id="quality-value" class="text-[var(--accent-color)]">80%</span>
+                    </label>
+                    <input type="range" id="quality-slider" min="0.1" max="1" step="0.05" value="0.8" class="mt-2">
+                </div>
+                <div id="size-comparison" class="text-left text-sm space-y-2 mt-4 text-gray-300"></div>
+                <div class="flex flex-col sm:grid sm:grid-cols-2 gap-4 mt-6">
+                    <a id="download-link" class="tool-button">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path>
+                        </svg>
+                        <span>Convert & Download</span>
+                    </a>
+                    <button id="clear-btn" class="tool-button">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                        </svg>
+                        <span>Clear & Start Over</span>
+                    </button>
+                </div>
+            </div>
+            <div class="adsense-placeholder adsense-mid-content"><span>Ad Space (300x250)</span></div>
+        </div>
+    </main>
+    <footer class="text-center py-8 px-4 sm:px-6 mt-12 border-t" style="border-color: #374151;">
+        <div class="adsense-placeholder adsense-top-banner mb-8"><span>Ad Space (Responsive)</span></div>
+        <p class="text-sm" style="color: var(--text-secondary);">© 2025 WhizzyTools. All Rights Reserved.</p>
+        <div class="mt-4 flex justify-center space-x-6">
+            <a href="privacy.html" class="text-xs text-gray-400 hover:underline">Privacy Policy</a>
+            <a href="about.html" class="text-xs text-gray-400 hover:underline">About Us</a>
+            <a href="contact.html" class="text-xs text-gray-400 hover:underline">Contact</a>
+        </div>
+    </footer>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuToggle = document.getElementById('mobile-menu-toggle');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const menuClose = document.getElementById('mobile-menu-close');
+            if (menuToggle && mobileMenu && menuClose) {
+                menuToggle.addEventListener('click', () => {
+                    mobileMenu.classList.remove('mobile-menu-closed');
+                    mobileMenu.classList.add('mobile-menu-open');
+                });
+                menuClose.addEventListener('click', () => {
+                    mobileMenu.classList.remove('mobile-menu-open');
+                    mobileMenu.classList.add('mobile-menu-closed');
+                });
+            }
+            const imageInput = document.getElementById('image-input');
+            const controlsContainer = document.getElementById('controls-container');
+            const qualitySlider = document.getElementById('quality-slider');
+            const qualityValue = document.getElementById('quality-value');
+            const resultContainer = document.getElementById('result-container');
+            const previewImage = document.getElementById('preview-image');
+            const sizeComparison = document.getElementById('size-comparison');
+            const downloadLink = document.getElementById('download-link');
+            const adContainer = document.querySelector('.adsense-mid-content');
+            const clearBtn = document.getElementById('clear-btn');
+            let originalFile = null;
+            const handleConversion = (file) => {
+                if (!file) {
+                    resultContainer.classList.add('hidden');
+                    imageInput.value = '';
+                    originalFile = null;
+                    return;
+                }
+                if (file.type !== 'image/jpeg' && file.type !== 'image/png') {
+                    alert("Please select a valid JPG or PNG file.");
+                    imageInput.value = '';
+                    originalFile = null;
+                    return;
+                }
+                originalFile = file;
+                resultContainer.classList.remove('hidden');
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const img = new Image();
+                    img.onload = function() {
+                        const canvas = document.createElement('canvas');
+                        canvas.width = img.width;
+                        canvas.height = img.height;
+                        const ctx = canvas.getContext('2d');
+                        ctx.drawImage(img, 0, 0);
+                        const quality = parseFloat(qualitySlider.value);
+                        const webpDataUrl = canvas.toDataURL('image/webp', quality);
+                        previewImage.src = webpDataUrl;
+                        downloadLink.href = webpDataUrl;
+                        downloadLink.download = `${originalFile.name.split('.').slice(0, -1).join('.')}.webp`;
+                        const originalSizeKB = (originalFile.size / 1024).toFixed(2);
+                        const newSizeKB = (atob(webpDataUrl.split(',')[1]).length / 1024).toFixed(2);
+                        const reduction = (((originalSizeKB - newSizeKB) / originalSizeKB) * 100).toFixed(0);
+                        sizeComparison.innerHTML = `
+                            <p><strong>Original Size:</strong> ${originalSizeKB} KB</p>
+                            <p><strong>New WebP Size:</strong> <span class="text-green-400 font-bold">${newSizeKB} KB</span></p>
+                            <p><strong>Reduction:</strong> <span class="text-green-400 font-bold">${reduction}%</span></p>
+                        `;
+                    }
+                    img.src = e.target.result;
+                }
+                reader.readAsDataURL(file);
+            };
+            imageInput.addEventListener('change', (e) => handleConversion(e.target.files[0]));
+            qualitySlider.addEventListener('input', () => {
+                qualityValue.textContent = `${Math.round(qualitySlider.value * 100)}%`;
+                if (originalFile) {
+                    handleConversion(originalFile);
+                }
+            });
+            clearBtn.addEventListener('click', () => {
+                handleConversion(null);
+            });
+            handleConversion(null);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JSON Formatter & Validator - WhizzyTools</title>
+    <meta name="description" content="Format, validate, and beautify your JSON data instantly. A clean and simple tool for developers.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Inter:wght@400;500&family=Fira+Code:wght@400&display=swap" rel="stylesheet">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/favicons/favicon-16x16.png">
+    <link rel="manifest" href="assets/favicons/site.webmanifest">
+    <link rel="shortcut icon" href="assets/favicons/favicon.ico">
+    <style>
+        :root {
+            --bg-primary: #111827;
+            --bg-secondary: #1F2937;
+            --text-primary: #F3F4F6;
+            --text-secondary: #9CA3AF;
+            --accent-color: #22D3EE;
+            --accent-hover: #67E8F9;
+            --success-color: #34D399;
+            --error-color: #F87171;
+        }
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Poppins', sans-serif;
+        }
+        .tool-button {
+            background-color: var(--accent-color);
+            color: var(--bg-primary);
+            font-weight: 600;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        .tool-button:hover {
+            background-color: var(--accent-hover);
+        }
+        .secondary-button {
+            background-color: #374151;
+            color: var(--text-primary);
+        }
+        .secondary-button:hover {
+            background-color: #4B5563;
+        }
+        textarea {
+            font-family: 'Fira Code', monospace;
+            background-color: #0d1117;
+            border: 1px solid #30363d;
+            border-radius: 0.5rem;
+            color: var(--text-primary);
+            resize: none;
+            min-height: 16rem;
+        }
+        textarea:focus {
+            outline: 2px solid var(--accent-color);
+            outline-offset: -1px;
+        }
+        .status-box {
+            padding: 0.75rem 1rem;
+            border-radius: 0.5rem;
+            font-weight: 500;
+            text-align: center;
+        }
+        .status-success {
+            background-color: rgba(52, 211, 153, 0.1);
+            color: var(--success-color);
+            border: 1px solid var(--success-color);
+        }
+        .status-error {
+            background-color: rgba(248, 113, 113, 0.1);
+            color: var(--error-color);
+            border: 1px solid var(--error-color);
+        }
+        .adsense-placeholder {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #374151;
+            border: 2px dashed #4B5563;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            border-radius: 0.5rem;
+            margin: 1.5rem auto;
+            width: 100%;
+            max-width: 728px;
+            min-height: 90px;
+        }
+        .adsense-mid-content {
+            max-width: 300px;
+            min-height: 250px;
+        }
+        @media screen and (max-width: 768px) {
+            .adsense-placeholder {
+                max-width: 100%;
+                min-height: 50px;
+            }
+            .adsense-mid-content {
+                max-width: 300px;
+                min-height: 250px;
+            }
+        }
+        .mobile-menu {
+            transition: transform 0.3s ease-in-out;
+        }
+        .mobile-menu-open {
+            transform: translateX(0);
+        }
+        .mobile-menu-closed {
+            transform: translateX(100%);
+        }
+    </style>
+</head>
+<body class="antialiased">
+    <header class="py-4 px-4 sm:px-6 md:px-12 flex justify-between items-center sticky top-0 bg-opacity-80 backdrop-blur-md" style="background-color: rgba(17, 24, 39, 0.8);">
+        <a href="index.html" class="flex items-center gap-2 group">
+            <img src="assets/images/whizzytoolslogo.svg" alt="WhizzyTools Logo" class="w-8 h-8 group-hover:rotate-[-10deg] transition-transform duration-300">
+            <div class="text-2xl font-bold text-white">Whizzy<span class="text-[var(--accent-color)]">Tools</span></div>
+        </a>
+        <nav class="hidden md:flex items-center space-x-6 text-sm">
+            <a href="index.html" class="text-gray-300 hover:text-white transition">Home</a>
+            <a href="index.html#tools" class="text-gray-300 hover:text-white transition">All Tools</a>
+            <a href="about.html" class="text-gray-300 hover:text-white transition">About</a>
+            <a href="contact.html" class="text-gray-300 hover:text-white transition">Contact</a>
+        </nav>
+        <button id="mobile-menu-toggle" class="md:hidden text-white focus:outline-none">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+            </svg>
+        </button>
+        <a href="github-gateway.html" class="hidden md:inline-block px-4 py-2 text-sm font-semibold text-white rounded-md transition" style="background-color: var(--accent-color); color: var(--bg-primary);">GitHub</a>
+    </header>
+    <nav id="mobile-menu" class="mobile-menu mobile-menu-closed md:hidden fixed top-0 right-0 h-full w-64 bg-[var(--bg-secondary)] p-6 z-50">
+        <button id="mobile-menu-close" class="text-white mb-4 focus:outline-none">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+        </button>
+        <div class="flex flex-col space-y-4 text-sm">
+            <a href="index.html" class="text-gray-300 hover:text-white transition">Home</a>
+            <a href="index.html#tools" class="text-gray-300 hover:text-white transition">All Tools</a>
+            <a href="about.html" class="text-gray-300 hover:text-white transition">About</a>
+            <a href="contact.html" class="text-gray-300 hover:text-white transition">Contact</a>
+            <a href="github-gateway.html" class="text-gray-300 hover:text-white transition">GitHub</a>
+        </div>
+    </nav>
+    <main class="py-12 px-4 sm:px-6 flex-1">
+        <div class="text-center max-w-3xl mx-auto">
+            <h1 class="text-3xl sm:text-4xl font-bold tracking-tight">JSON Formatter & Validator</h1>
+            <p class="mt-4 text-base sm:text-lg" style="color: var(--text-secondary);">
+                Paste your messy JSON code to beautify, format, and validate it. Find errors in your code instantly.
+            </p>
+        </div>
+        <div class="adsense-placeholder adsense-top-banner mt-8"><span>Ad Space (Responsive)</span></div>
+        <div class="max-w-7xl mx-auto mt-12">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <textarea id="json-input" class="w-full h-64 sm:h-96 p-4" placeholder="Paste your JSON here..."></textarea>
+                <textarea id="json-output" class="w-full h-64 sm:h-96 p-4" readonly placeholder="Your formatted JSON will appear here..."></textarea>
+            </div>
+            <div class="flex flex-col sm:flex-row justify-center items-center gap-4 mt-4">
+                <button id="format-btn" class="tool-button w-full sm:w-48">Format / Validate</button>
+                <button id="copy-btn" class="tool-button w-full sm:w-48">Copy Output</button>
+                <button id="clear-btn" class="tool-button w-full sm:w-48">Clear</button>
+            </div>
+            <div class="adsense-placeholder adsense-mid-content mt-4"><span>Ad Space (300x250)</span></div>
+            <div id="status-container" class="max-w-3xl mx-auto mt-4 min-h-12"></div>
+        </div>
+    </main>
+    <footer class="text-center py-8 px-4 sm:px-6 mt-12 border-t" style="border-color: #374151;">
+        <div class="adsense-placeholder adsense-top-banner mb-8"><span>Ad Space (Responsive)</span></div>
+        <p class="text-sm" style="color: var(--text-secondary);">© 2025 WhizzyTools. All Rights Reserved.</p>
+        <div class="mt-4 flex justify-center space-x-6">
+            <a href="privacy.html" class="text-xs text-gray-400 hover:underline">Privacy Policy</a>
+            <a href="about.html" class="text-xs text-gray-400 hover:underline">About Us</a>
+            <a href="contact.html" class="text-xs text-gray-400 hover:underline">Contact</a>
+        </div>
+    </footer>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuToggle = document.getElementById('mobile-menu-toggle');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const menuClose = document.getElementById('mobile-menu-close');
+            if (menuToggle && mobileMenu && menuClose) {
+                menuToggle.addEventListener('click', () => {
+                    mobileMenu.classList.remove('mobile-menu-closed');
+                    mobileMenu.classList.add('mobile-menu-open');
+                });
+                menuClose.addEventListener('click', () => {
+                    mobileMenu.classList.remove('mobile-menu-open');
+                    mobileMenu.classList.add('mobile-menu-closed');
+                });
+            }
+            const inputEl = document.getElementById('json-input');
+            const outputEl = document.getElementById('json-output');
+            const statusContainer = document.getElementById('status-container');
+            const formatBtn = document.getElementById('format-btn');
+            const copyBtn = document.getElementById('copy-btn');
+            const clearBtn = document.getElementById('clear-btn');
+            const formatJson = () => {
+                const rawText = inputEl.value.trim();
+                statusContainer.innerHTML = '';
+                outputEl.value = '';
+                if (!rawText) return;
+                try {
+                    const parsedJson = JSON.parse(rawText);
+                    const formattedJson = JSON.stringify(parsedJson, null, 2);
+                    outputEl.value = formattedJson;
+                    statusContainer.innerHTML = `<div class="status-box status-success">✅ Valid JSON</div>`;
+                } catch (error) {
+                    outputEl.value = `Error: ${error.message}\n\nYour original text:\n${rawText}`;
+                    statusContainer.innerHTML = `<div class="status-box status-error">❌ Invalid JSON: ${error.message}</div>`;
+                }
+            };
+            const copyOutput = () => {
+                if (outputEl.value && !outputEl.value.startsWith('Error:')) {
+                    navigator.clipboard.writeText(outputEl.value)
+                        .then(() => { statusContainer.innerHTML = `<div class="status-box status-success">Copied to clipboard!</div>`; })
+                        .catch(err => { statusContainer.innerHTML = `<div class="status-box status-error">Failed to copy!</div>`; });
+                }
+            };
+            const clearFields = () => {
+                inputEl.value = '';
+                outputEl.value = '';
+                statusContainer.innerHTML = '';
+            };
+            formatBtn.addEventListener('click', formatJson);
+            copyBtn.addEventListener('click', copyOutput);
+            clearBtn.addEventListener('click', clearFields);
+        });
+    </script>
+</body>
+</html>

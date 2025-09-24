@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WhizzyTools - Instant Solutions at Your Fingertips</title>
+    <meta name="description" content="A growing collection of free, intuitive, and powerful online utilities to save you time and effort.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/favicons/favicon-16x16.png">
+    <link rel="manifest" href="assets/favicons/site.webmanifest">
+    <link rel="shortcut icon" href="assets/favicons/favicon.ico">
+    <style>
+        :root {
+            --bg-primary: #111827;
+            --bg-secondary: #1F2937;
+            --text-primary: #F3F4F6;
+            --text-secondary: #9CA3AF;
+            --accent-color: #22D3EE;
+            --accent-hover: #67E8F9;
+        }
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Poppins', sans-serif;
+        }
+        .hero-gradient {
+            background: radial-gradient(ellipse at top, rgba(34, 211, 238, 0.1), transparent 70%);
+        }
+        .tool-card {
+            background-color: var(--bg-secondary);
+            border: 1px solid #374151;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            min-height: 200px;
+            flex-grow: 1;
+        }
+        .tool-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(34, 211, 238, 0.2);
+        }
+        .coming-soon-card {
+            cursor: not-allowed;
+            opacity: 0.6;
+            position: relative;
+            overflow: hidden;
+        }
+        .coming-soon-card:hover {
+            transform: none;
+            box-shadow: none;
+        }
+        .coming-soon-badge {
+            position: absolute;
+            top: 10px;
+            right: -20px;
+            background-color: var(--accent-color);
+            color: var(--bg-primary);
+            padding: 2px 30px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            transform: rotate(45deg);
+            text-transform: uppercase;
+        }
+        @media screen and (max-width: 640px) {
+            .coming-soon-badge {
+                right: -30px;
+            }
+        }
+        .adsense-placeholder {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #374151;
+            border: 2px dashed #4B5563;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            border-radius: 0.5rem;
+            margin: 1.5rem auto;
+            width: 100%;
+            max-width: 728px;
+            min-height: 90px;
+        }
+        .adsense-mid-content {
+            max-width: 300px;
+            min-height: 250px;
+        }
+        @media screen and (max-width: 768px) {
+            .adsense-placeholder {
+                max-width: 100%;
+                min-height: 50px;
+            }
+            .adsense-mid-content {
+                max-width: 300px;
+                min-height: 250px;
+            }
+        }
+        .mobile-menu {
+            transition: transform 0.3s ease-in-out;
+        }
+        .mobile-menu-open {
+            transform: translateX(0);
+        }
+        .mobile-menu-closed {
+            transform: translateX(100%);
+        }
+    </style>
+</head>
+<body class="antialiased">
+    <header class="py-4 px-4 sm:px-6 md:px-12 flex justify-between items-center sticky top-0 bg-opacity-80 backdrop-blur-md" style="background-color: rgba(17, 24, 39, 0.8);">
+        <a href="index.html" class="flex items-center gap-2 group">
+            <img src="assets/images/whizzytoolslogo.svg" alt="WhizzyTools Logo" class="w-8 h-8 group-hover:rotate-[-10deg] transition-transform duration-300">
+            <div class="text-2xl font-bold text-white">
+                Whizzy<span class="text-[var(--accent-color)]">Tools</span>
+            </div>
+        </a>
+        <nav class="hidden md:flex items-center space-x-6 text-sm">
+            <a href="index.html" class="text-gray-300 hover:text-white transition">Home</a>
+            <a href="#tools" class="text-gray-300 hover:text-white transition">All Tools</a>
+            <a href="about.html" class="text-gray-300 hover:text-white transition">About</a>
+            <a href="contact.html" class="text-gray-300 hover:text-white transition">Contact</a>
+        </nav>
+        <button id="mobile-menu-toggle" class="md:hidden text-white focus:outline-none">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+            </svg>
+        </button>
+        <a href="github-gateway.html" class="hidden md:inline-block px-4 py-2 text-sm font-semibold text-white rounded-md transition" style="background-color: var(--accent-color); color: var(--bg-primary);">GitHub</a>
+    </header>
+    <nav id="mobile-menu" class="mobile-menu mobile-menu-closed md:hidden fixed top-0 right-0 h-full w-64 bg-[var(--bg-secondary)] p-6 z-50">
+        <button id="mobile-menu-close" class="text-white mb-4 focus:outline-none">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+        </button>
+        <div class="flex flex-col space-y-4 text-sm">
+            <a href="index.html" class="text-gray-300 hover:text-white transition">Home</a>
+            <a href="#tools" class="text-gray-300 hover:text-white transition">All Tools</a>
+            <a href="about.html" class="text-gray-300 hover:text-white transition">About</a>
+            <a href="contact.html" class="text-gray-300 hover:text-white transition">Contact</a>
+            <a href="github-gateway.html" class="text-gray-300 hover:text-white transition">GitHub</a>
+        </div>
+    </nav>
+    <main class="flex-1">
+        <section class="hero-gradient text-center py-12 sm:py-20 md:py-32 px-4 sm:px-6">
+            <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight">Instant Solutions at Your Fingertips.</h1>
+            <p class="mt-6 max-w-2xl mx-auto text-base sm:text-lg" style="color: var(--text-secondary);">
+                WhizzyTools is a growing collection of free, intuitive, and powerful online utilities. From developers and designers to students and professionals, our mission is to provide simple solutions that save you time and effort. No clutter, no nonsense—just tools that work.
+            </p>
+            <div class="mt-8">
+                <a href="#tools" class="px-8 py-3 text-base sm:text-lg font-semibold text-white rounded-md shadow-lg transition" style="background-color: var(--accent-color); color: var(--bg-primary);">
+                    Explore Tools
+                </a>
+            </div>
+        </section>
+        <div class="adsense-placeholder adsense-top-banner">
+            <span>Ad Space (Responsive)</span>
+        </div>
+        <section id="tools" class="py-20 px-4 sm:px-6 md:px-12">
+            <div class="max-w-7xl mx-auto">
+                <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-center">Our Tool Collection</h2>
+                <p class="mt-4 max-w-xl mx-auto text-center text-base sm:text-lg" style="color: var(--text-secondary);">
+                    Select a tool to get started. More are being added all the time!
+                </p>
+                <div class="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch">
+                    <a href="image-to-pdf.html" class="tool-card rounded-xl p-6">
+                        <div class="flex items-center gap-4 mb-4">
+                            <div class="p-3 rounded-lg" style="background-color: rgba(34, 211, 238, 0.1);">
+                                <svg class="w-8 h-8" style="color: var(--accent-color);" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
+                                </svg>
+                            </div>
+                            <h3 class="text-xl font-bold">Image to PDF Converter</h3>
+                        </div>
+                        <p class="text-sm flex-grow" style="color: var(--text-secondary);">Convert your JPG and PNG images into a single, easy-to-share PDF document.</p>
+                    </a>
+                    <a href="image-to-webp.html" class="tool-card rounded-xl p-6">
+                        <div class="flex items-center gap-4 mb-4">
+                            <div class="p-3 rounded-lg" style="background-color: rgba(34, 211, 238, 0.1);">
+                                <svg class="w-8 h-8" style="color: var(--accent-color);" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+                                </svg>
+                            </div>
+                            <h3 class="text-xl font-bold">Image to WebP Converter</h3>
+                        </div>
+                        <p class="text-sm flex-grow" style="color: var(--text-secondary);">Optimize images for the web. Convert JPG and PNG files to the modern WebP format.</p>
+                    </a>
+                    <a href="image-color-picker.html" class="tool-card rounded-xl p-6">
+                        <div class="flex items-center gap-4 mb-4">
+                            <div class="p-3 rounded-lg" style="background-color: rgba(34, 211, 238, 0.1);">
+                                <svg class="w-8 h-8" style="color: var(--accent-color);" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9.53 16.122a3 3 0 00-5.78 1.128 2.25 2.25 0 01-2.4 2.245c0-1.254.897-2.31 2.152-2.31a2.25 2.25 0 012.4 2.245zM11.25 12a3 3 0 01-5.78-1.128 2.25 2.25 0 00-2.4 2.245c0 1.254.897 2.31 2.152 2.31a2.25 2.25 0 002.4-2.245z" />
+                                </svg>
+                            </div>
+                            <h3 class="text-xl font-bold">Image Color Picker</h3>
+                        </div>
+                        <p class="text-sm flex-grow" style="color: var(--text-secondary);">Identify colors in any image instantly. Just upload your JPG or PNG and click to get RGB, Hexadecimal, and HSL codes.</p>
+                    </a>
+                    <div class="adsense-placeholder adsense-mid-content">
+                        <span>Ad Space (300x250)</span>
+                    </div>
+                    <a href="scientific-calculator.html" class="tool-card rounded-xl p-6">
+                        <div class="flex items-center gap-4 mb-4">
+                            <div class="p-3 rounded-lg" style="background-color: rgba(34, 211, 238, 0.1);">
+                                <svg class="w-8 h-8" style="color: var(--accent-color);" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                                </svg>
+                            </div>
+                            <h3 class="text-xl font-bold">Scientific Calculator</h3>
+                        </div>
+                        <p class="text-sm flex-grow" style="color: var(--text-secondary);">Solve complex equations with a full-featured scientific calculator, from basic arithmetic to trigonometry.</p>
+                    </a>
+                    <a href="percentage-calculator.html" class="tool-card rounded-xl p-6">
+                        <div class="flex items-center gap-4 mb-4">
+                            <div class="p-3 rounded-lg" style="background-color: rgba(34, 211, 238, 0.1);">
+                                <svg class="w-8 h-8" style="color: var(--accent-color);" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M5.25 7.5A2.25 2.25 0 017.5 5.25h9a2.25 2.25 0 012.25 2.25v9a2.25 2.25 0 01-2.25-2.25h-9a2.25 2.25 0 01-2.25-2.25v-9z" /><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 10.5a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM15 15a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM10.5 15l4.5-4.5" />
+                                </svg>
+                            </div>
+                            <h3 class="text-xl font-bold">Percentage Calculator</h3>
+                        </div>
+                        <p class="text-sm flex-grow" style="color: var(--text-secondary);">Solve various percentage problems. Calculate proportions, discounts, and value changes.</p>
+                    </a>
+                    <a href="word-character-counter.html" class="tool-card rounded-xl p-6">
+                        <div class="flex items-center gap-4 mb-4">
+                            <div class="p-3 rounded-lg" style="background-color: rgba(34, 211, 238, 0.1);">
+                                <svg class="w-8 h-8" style="color: var(--accent-color);" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M10.125 2.25h-4.5c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125v-9M10.125 2.25h.375a9 9 0 019 9v.375M10.125 2.25V3.375c0 .621.504 1.125 1.125 1.125h1.5c.621 0 1.125-.504 1.125-1.125V2.25M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                </svg>
+                            </div>
+                            <h3 class="text-xl font-bold">Word & Character Counter</h3>
+                        </div>
+                        <p class="text-sm flex-grow" style="color: var(--text-secondary);">Write with precision. Instantly count words, characters, and sentences to meet any requirement.</p>
+                    </a>
+                    <div class="adsense-placeholder adsense-mid-content">
+                        <span>Ad Space (300x250)</span>
+                    </div>
+                    <a href="qr-generator.html" class="tool-card rounded-xl p-6">
+                        <div class="flex items-center gap-4 mb-4">
+                            <div class="p-3 rounded-lg" style="background-color: rgba(34, 211, 238, 0.1);">
+                                <svg class="w-8 h-8" style="color: var(--accent-color);" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 4.875c0-1.036.84-1.875 1.875-1.875h4.5c1.036 0 1.875.84 1.875 1.875v4.5c0 1.036-.84 1.875-1.875 1.875h-4.5A1.875 1.875 0 013.75 9.375v-4.5zM3.75 14.625c0-1.036.84-1.875 1.875-1.875h4.5c1.036 0 1.875.84 1.875 1.875v4.5c0 1.036-.84 1.875-1.875 1.875h-4.5a1.875 1.875 0 01-1.875-1.875v-4.5zM13.5 4.875c0-1.036.84-1.875 1.875-1.875h4.5c1.036 0 1.875.84 1.875 1.875v4.5c0 1.036-.84 1.875-1.875 1.875h-4.5a1.875 1.875 0 01-1.875-1.875v-4.5zM13.5 14.625a1.875 1.875 0 011.875-1.875h4.5a1.875 1.875 0 011.875 1.875v4.5c0 1.036-.84 1.875-1.875 1.875h-4.5a1.875 1.875 0 01-1.875-1.875v-4.5z" />
+                                </svg>
+                            </div>
+                            <h3 class="text-xl font-bold">QR Code Generator</h3>
+                        </div>
+                        <p class="text-sm flex-grow" style="color: var(--text-secondary);">Create and download custom QR codes for URLs, text, and more. Simple and fast.</p>
+                    </a>
+                    <a href="json-formatter.html" class="tool-card rounded-xl p-6">
+                        <div class="flex items-center gap-4 mb-4">
+                            <div class="p-3 rounded-lg" style="background-color: rgba(34, 211, 238, 0.1);">
+                                <svg class="w-8 h-8" style="color: var(--accent-color);" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M14.25 9.75L16.5 12l-2.25 2.25m-4.5 0L7.5 12l2.25-2.25M6 20.25h12A2.25 2.25 0 0020.25 18V6A2.25 2.25 0 0018 3.75H6A2.25 2.25 0 003.75 6v12A2.25 2.25 0 006 20.25z" />
+                                </svg>
+                            </div>
+                            <h3 class="text-xl font-bold">JSON Formatter & Validator</h3>
+                        </div>
+                        <p class="text-sm flex-grow" style="color: var(--text-secondary);">Beautify, format, and validate your JSON data to find and fix errors instantly.</p>
+                    </a>
+                    <div class="tool-card coming-soon-card rounded-xl p-6">
+                        <div class="coming-soon-badge">Soon</div>
+                        <div class="flex items-center gap-4 mb-4">
+                            <div class="p-3 rounded-lg" style="background-color: rgba(34, 211, 238, 0.1);">
+                                <svg class="w-8 h-8" style="color: var(--accent-color);" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9.53 16.122a3 3 0 00-5.78 1.128 2.25 2.25 0 01-2.4 2.245c0-1.254.897-2.31 2.152-2.31a2.25 2.25 0 012.4 2.245zM11.25 12a3 3 0 01-5.78-1.128 2.25 2.25 0 00-2.4 2.245c0 1.254.897 2.31 2.152 2.31a2.25 2.25 0 002.4-2.245z" />
+                                </svg>
+                            </div>
+                            <h3 class="text-xl font-bold">Color Palette Generator</h3>
+                        </div>
+                        <p class="text-sm flex-grow" style="color: var(--text-secondary);">Find the perfect color scheme. Instantly generate beautiful palettes for your next design project.</p>
+                    </div>
+                    <div class="tool-card coming-soon-card rounded-xl p-6">
+                        <div class="coming-soon-badge">Soon</div>
+                        <div class="flex items-center gap-4 mb-4">
+                            <div class="p-3 rounded-lg" style="background-color: rgba(34, 211, 238, 0.1);">
+                                <svg class="w-8 h-8" style="color: var(--accent-color);" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                            </div>
+                            <h3 class="text-xl font-bold">Time Zone Converter</h3>
+                        </div>
+                        <p class="text-sm flex-grow" style="color: var(--text-secondary);">Master time zones with ease. Quickly calculate the time difference between cities around the world.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer class="text-center py-8 px-4 sm:px-6 mt-12 border-t" style="border-color: #374151;">
+        <div class="adsense-placeholder adsense-top-banner mb-8">
+            <span>Ad Space (Responsive)</span>
+        </div>
+        <p class="text-sm" style="color: var(--text-secondary);">
+            © 2025 WhizzyTools. All Rights Reserved.
+        </p>
+        <div class="mt-4 flex justify-center space-x-6">
+            <a href="privacy.html" class="text-xs text-gray-400 hover:underline">Privacy Policy</a>
+            <a href="about.html" class="text-xs text-gray-400 hover:underline">About Us</a>
+            <a href="contact.html" class="text-xs text-gray-400 hover:underline">Contact</a>
+        </div>
+    </footer>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuToggle = document.getElementById('mobile-menu-toggle');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const menuClose = document.getElementById('mobile-menu-close');
+            if (menuToggle && mobileMenu && menuClose) {
+                menuToggle.addEventListener('click', () => {
+                    mobileMenu.classList.remove('mobile-menu-closed');
+                    mobileMenu.classList.add('mobile-menu-open');
+                });
+                menuClose.addEventListener('click', () => {
+                    mobileMenu.classList.remove('mobile-menu-open');
+                    mobileMenu.classList.add('mobile-menu-closed');
+                });
+            }
+        });
+    </script>
+</body>
+</html>

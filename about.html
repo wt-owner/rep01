@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - WhizzyTools</title>
+    <meta name="description" content="A growing collection of free, intuitive, and powerful online utilities to save you time and effort.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/favicons/favicon-16x16.png">
+    <link rel="manifest" href="assets/favicons/site.webmanifest">
+    <link rel="shortcut icon" href="assets/favicons/favicon.ico">
+    <style>
+        :root {
+            --bg-primary: #111827;
+            --bg-secondary: #1F2937;
+            --text-primary: #F3F4F6;
+            --text-secondary: #9CA3AF;
+            --accent-color: #22D3EE;
+            --accent-hover: #67E8F9;
+        }
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Poppins', sans-serif;
+        }
+        .text-content-container {
+            background-color: var(--bg-secondary);
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin: 2rem auto;
+            max-width: 800px;
+            border: 1px solid #374151;
+        }
+        .text-content-container h2 {
+            font-size: 1.25rem;
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid #374151;
+        }
+        .text-content-container p {
+            color: var(--text-secondary);
+            line-height: 1.7;
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+        }
+        .adsense-placeholder {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #374151;
+            border: 2px dashed #4B5563;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            border-radius: 0.5rem;
+            margin: 1.5rem auto;
+            width: 100%;
+            max-width: 728px;
+            min-height: 90px;
+        }
+        @media screen and (max-width: 768px) {
+            .adsense-placeholder {
+                max-width: 100%;
+                min-height: 50px;
+            }
+            .text-content-container {
+                padding: 1rem;
+            }
+        }
+        #adblock-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(17, 24, 39, 0.95);
+            color: white;
+            z-index: 9999;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            flex-direction: column;
+            backdrop-filter: blur(5px);
+        }
+        #adblock-overlay h1 {
+            font-size: 1.5rem;
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+        }
+        #adblock-overlay p {
+            font-size: 1rem;
+            max-width: 90%;
+            margin: 0.5rem;
+            color: var(--text-primary);
+        }
+        .adblock-icon {
+            width: 60px;
+            height: 60px;
+            stroke-width: 1.5;
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+        }
+        .ads-banner-bait {
+            height: 1px !important;
+            width: 1px !important;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            opacity: 0.01;
+            pointer-events: none;
+        }
+        .mobile-menu {
+            transition: transform 0.3s ease-in-out;
+        }
+        .mobile-menu-open {
+            transform: translateX(0);
+        }
+        .mobile-menu-closed {
+            transform: translateX(100%);
+        }
+    </style>
+</head>
+<body class="antialiased">
+    <div id="adblock-overlay">
+        <svg class="adblock-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
+        </svg>
+        <h1>AdBlocker Detected</h1>
+        <p>Please disable your adblocker to access all features.</p>
+        <p class="text-sm text-gray-400">Our ads are non-intrusive and help us keep these tools free.</p>
+    </div>
+    <div id="page-content">
+        <header class="py-4 px-4 sm:px-6 md:px-12 flex justify-between items-center sticky top-0 bg-opacity-80 backdrop-blur-md" style="background-color: rgba(17, 24, 39, 0.8);">
+            <a href="index.html" class="flex items-center gap-2 group">
+                <img src="assets/images/whizzytoolslogo.svg" alt="WhizzyTools Logo" class="w-8 h-8 group-hover:rotate-[-10deg] transition-transform duration-300">
+                <div class="text-2xl font-bold text-white">Whizzy<span class="text-[var(--accent-color)]">Tools</span></div>
+            </a>
+            <nav class="hidden md:flex items-center space-x-6 text-sm">
+                <a href="index.html" class="text-gray-300 hover:text-white transition">Home</a>
+                <a href="index.html#tools" class="text-gray-300 hover:text-white transition">All Tools</a>
+                <a href="about.html" class="text-gray-300 hover:text-white transition">About</a>
+                <a href="contact.html" class="text-gray-300 hover:text-white transition">Contact</a>
+            </nav>
+            <button id="mobile-menu-toggle" class="md:hidden text-white focus:outline-none">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+            <a href="github-gateway.html" class="hidden md:inline-block px-4 py-2 text-sm font-semibold text-white rounded-md transition" style="background-color: var(--accent-color); color: var(--bg-primary);">GitHub</a>
+        </header>
+        <nav id="mobile-menu" class="mobile-menu mobile-menu-closed md:hidden fixed top-0 right-0 h-full w-64 bg-[var(--bg-secondary)] p-6 z-50">
+            <button id="mobile-menu-close" class="text-white mb-4 focus:outline-none">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+            <div class="flex flex-col space-y-4 text-sm">
+                <a href="index.html" class="text-gray-300 hover:text-white transition">Home</a>
+                <a href="index.html#tools" class="text-gray-300 hover:text-white transition">All Tools</a>
+                <a href="about.html" class="text-gray-300 hover:text-white transition">About</a>
+                <a href="contact.html" class="text-gray-300 hover:text-white transition">Contact</a>
+                <a href="github-gateway.html" class="text-gray-300 hover:text-white transition">GitHub</a>
+            </div>
+        </nav>
+        <main class="px-4 sm:px-6 flex-1">
+            <div class="text-content-container">
+                <h1 class="text-3xl sm:text-4xl font-bold text-center">About WhizzyTools</h1>
+                <h2 class="!mt-8">Our Mission</h2>
+                <p>WhizzyTools was born from a simple idea: the internet needs more tools that are fast, free, and don't suck. We were tired of navigating bloated websites, dodging invasive pop-ups, and waiting for slow pages just to perform a simple task. We believed there had to be a better way.</p>
+                <p>Our mission is to build a growing collection of high-quality, intuitive, and powerful online utilities that solve real-world problems for real people. Whether you're a developer, a designer, a writer, a student, or just someone trying to get something done, our tools are here to help you save time and effort. No clutter, no nonsense—just tools that work.</p>
+                <h2>Our Philosophy</h2>
+                <p>We believe in simplicity and performance. Every tool on this site is designed to be the best at what it does. We focus on a clean, user-friendly interface and ensure our pages are lightweight and load instantly. We respect your time and your privacy, which is why we are committed to providing a transparent and secure experience.</p>
+                <h2>The Future</h2>
+                <p>This is just the beginning. Our collection is diverse because our needs are diverse, and we are constantly working on new ideas to add to the WhizzyTools family. We are passionate about creating a genuinely useful resource for the internet community. If you have an idea for a tool you'd like to see, feel free to get in touch!</p>
+            </div>
+            <div class="adsense-placeholder mt-8"><span>Ad Space (Responsive)</span></div>
+        </main>
+        <footer class="text-center py-8 px-4 sm:px-6 mt-12 border-t" style="border-color: #374151;">
+            <div class="adsense-placeholder mb-8"><span>Ad Space (Responsive)</span></div>
+            <p class="text-sm" style="color: var(--text-secondary);">© 2025 WhizzyTools. All Rights Reserved.</p>
+            <div class="mt-4 flex justify-center space-x-6">
+                <a href="privacy.html" class="text-xs text-gray-400 hover:underline">Privacy Policy</a>
+                <a href="about.html" class="text-xs text-gray-400 hover:underline">About Us</a>
+                <a href="contact.html" class="text-xs text-gray-400 hover:underline">Contact</a>
+            </div>
+        </footer>
+    </div>
+    <div class="ads-banner-bait"></div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // AdBlocker logic
+            const baitElement = document.querySelector('.ads-banner-bait');
+            const overlay = document.getElementById('adblock-overlay');
+            const pageContent = document.getElementById('page-content');
+            function checkAdBlocker() {
+                if (baitElement.offsetHeight === 0) {
+                    overlay.style.display = 'flex';
+                    pageContent.style.opacity = '0.3';
+                } else {
+                    overlay.style.display = 'none';
+                    pageContent.style.opacity = '1';
+                }
+            }
+            setTimeout(checkAdBlocker, 150);
+            // Mobile menu toggle
+            const menuToggle = document.getElementById('mobile-menu-toggle');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const menuClose = document.getElementById('mobile-menu-close');
+            menuToggle.addEventListener('click', () => {
+                mobileMenu.classList.remove('mobile-menu-closed');
+                mobileMenu.classList.add('mobile-menu-open');
+            });
+            menuClose.addEventListener('click', () => {
+                mobileMenu.classList.remove('mobile-menu-open');
+                mobileMenu.classList.add('mobile-menu-closed');
+            });
+        });
+    </script>
+</body>
+</html>

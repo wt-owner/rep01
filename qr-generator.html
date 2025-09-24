@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Code Generator - WhizzyTools</title>
+    <meta name="description" content="Instantly create and download high-quality QR codes for URLs, text, Wi-Fi, and more. Free, fast, and easy to use.">
+    <style>
+        * { box-sizing: border-box; }
+        body { margin: 0; padding: 0; }
+    </style>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode/1.5.1/qrcode.min.js"></script>
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/favicons/favicon-16x16.png">
+    <link rel="manifest" href="assets/favicons/site.webmanifest">
+    <link rel="shortcut icon" href="assets/favicons/favicon.ico">
+    <style>
+        :root {
+            --bg-primary: #111827;
+            --bg-secondary: #1F2937;
+            --text-primary: #F3F4F6;
+            --text-secondary: #9CA3AF;
+            --accent-color: #22D3EE;
+            --accent-hover: #67E8F9;
+        }
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            font-family: 'Inter', sans-serif;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Poppins', sans-serif;
+        }
+        .tool-container {
+            background-color: var(--bg-secondary);
+            border-radius: 0.75rem;
+            border: 1px solid #374151;
+        }
+        .tool-input {
+            background-color: var(--bg-primary);
+            border: 1px solid #374151;
+            border-radius: 0.5rem;
+            padding: 0.75rem 1rem;
+            width: 100%;
+            color: var(--text-primary);
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        .tool-input:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 2px rgba(34, 211, 238, 0.3);
+        }
+        .tool-button {
+            background-color: var(--accent-color);
+            color: var(--bg-primary);
+            font-weight: 600;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .tool-button:hover {
+            background-color: var(--accent-hover);
+        }
+        .tool-button:disabled {
+            background-color: #374151;
+            color: var(--text-secondary);
+            cursor: not-allowed;
+        }
+        .secondary-button {
+            background-color: #374151;
+            color: var(--text-primary);
+        }
+        .secondary-button:hover {
+            background-color: #4B5563;
+        }
+        #qrcode-display {
+            background-color: white;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            width: 280px;
+            height: 280px;
+            max-width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto;
+            border: 4px solid #374151;
+        }
+        #qrcode-display canvas {
+            width: 100% !important;
+            height: 100% !important;
+        }
+        .adsense-placeholder {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #374151;
+            border: 2px dashed #4B5563;
+            color: var(--text-secondary);
+            font-size: 0.75rem;
+            border-radius: 0.5rem;
+            width: 100%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .adsense-top-banner {
+            min-height: 90px;
+        }
+        .adsense-mid-content {
+            min-height: 250px;
+        }
+        .adsense-footer-banner {
+            min-height: 90px;
+        }
+        @media (max-width: 640px) {
+            .adsense-placeholder {
+                margin: 0.5rem 0;
+            }
+        }
+        @media (max-width: 360px) {
+            .tool-container {
+                padding-left: 0.75rem;
+                padding-right: 0.75rem;
+            }
+        }
+    </style>
+</head>
+<body class="antialiased">
+    <script type="text/javascript">0</script>
+    <div id="page-content">
+        <header class="py-3 px-2 sm:px-4 md:px-6 lg:px-12 flex justify-between items-center sticky top-0 bg-opacity-80 backdrop-blur-md z-50" style="background-color: rgba(17, 24, 39, 0.8);">
+            <a href="index.html" class="flex items-center gap-1.5 group">
+                <img src="assets/images/whizzytoolslogo.svg" alt="WhizzyTools Logo" class="w-7 h-7 sm:w-8 sm:h-8 group-hover:rotate-[-10deg] transition-transform duration-300">
+                <div class="text-lg sm:text-xl md:text-2xl font-bold text-white">
+                    Whizzy<span class="text-[var(--accent-color)]">Tools</span>
+                </div>
+            </a>
+            <nav class="hidden md:flex items-center space-x-4 lg:space-x-6 text-sm md:text-base">
+                <a href="index.html" class="text-gray-300 hover:text-white transition">Home</a>
+                <a href="index.html#tools" class="text-gray-300 hover:text-white transition">All Tools</a>
+                <a href="about.html" class="text-gray-300 hover:text-white transition">About</a>
+                <a href="contact.html" class="text-gray-300 hover:text-white transition">Contact</a>
+            </nav>
+            <div class="hidden md:flex items-center gap-3">
+                <a href="github-gateway.html" class="px-3 py-1.5 text-sm md:text-base font-semibold text-white rounded-md transition" style="background-color: var(--accent-color); color: var(--bg-primary);">GitHub</a>
+            </div>
+            <button id="menu-toggle" class="md:hidden text-white focus:outline-none">
+                <svg class="w-6 h-6 sm:w-7 sm:h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+        </header>
+        <div id="mobile-menu" class="hidden md:hidden bg-[var(--bg-secondary)] px-2 sm:px-4 py-3 border-b border-gray-600">
+            <nav class="flex flex-col space-y-3 text-sm sm:text-base">
+                <a href="index.html" class="text-gray-300 hover:text-white transition">Home</a>
+                <a href="index.html#tools" class="text-gray-300 hover:text-white transition">All Tools</a>
+                <a href="about.html" class="text-gray-300 hover:text-white transition">About</a>
+                <a href="contact.html" class="text-gray-300 hover:text-white transition">Contact</a>
+                <a href="github-gateway.html" class="px-3 py-1.5 text-sm sm:text-base font-semibold text-white rounded-md transition inline-block text-center mx-auto" style="background-color: var(--accent-color); color: var(--bg-primary);">GitHub</a>
+            </nav>
+        </div>
+        <main class="px-2 sm:px-4 md:px-6 lg:px-12 pb-6">
+            <div class="text-center max-w-[95%] sm:max-w-[90%] md:max-w-2xl lg:max-w-3xl mx-auto my-4 sm:my-6 md:my-8">
+                <h1 class="text-base sm:text-lg md:text-xl lg:text-2xl font-bold tracking-tight">QR Code Generator</h1>
+                <p class="mt-2 sm:mt-3 md:mt-4 text-sm sm:text-base md:text-lg" style="color: var(--text-secondary);">
+                    Create your custom QR code in seconds. Simply enter any text or URL below to instantly generate a downloadable QR code.
+                </p>
+            </div>
+            <div class="adsense-placeholder adsense-top-banner max-w-[280px] sm:max-w-[336px] md:max-w-[728px] lg:max-w-[970px] min-h-[90px] my-2 sm:my-3 md:my-4 mx-auto">
+                <span>Ad Space (Responsive)</span>
+            </div>
+            <div class="tool-container max-w-[95%] sm:max-w-[90%] md:max-w-2xl lg:max-w-3xl xl:max-w-4xl mx-auto mt-4 sm:mt-6 md:mt-8 p-4 sm:p-6 md:p-8 lg:p-10">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 md:gap-8 items-start">
+                    <div class="flex flex-col gap-4">
+                        <div class="flex justify-between items-center">
+                            <label for="qr-text" class="font-medium text-sm sm:text-base md:text-lg">Enter URL or Text</label>
+                            <button id="clear-btn" class="tool-button secondary-button !p-2 hidden" title="Clear text">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                                </svg>
+                            </button>
+                        </div>
+                        <textarea id="qr-text" rows="6" class="tool-input" placeholder="e.g., https://whizzytools.com"></textarea>
+                    </div>
+                    <div class="flex flex-col gap-4 sm:gap-6 items-center">
+                        <div id="qrcode-display">
+                            <span id="qrcode-placeholder" style="color: var(--text-secondary);">Your QR code will appear here</span>
+                        </div>
+                        <button id="download-btn" class="tool-button w-full sm:w-auto">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
+                            </svg>
+                            Download QR Code (.PNG)
+                        </button>
+                        <div class="adsense-placeholder adsense-mid-content max-w-[280px] sm:max-w-[336px] md:max-w-[728px] lg:max-w-[970px] min-h-[250px] mt-2 sm:mt-3 md:mt-4 mx-auto">
+                            <span>Ad Space (Responsive)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer class="text-center py-6 px-2 sm:px-4 md:px-6 lg:px-12 mt-10 border-t" style="border-color: #374151;">
+            <div class="adsense-placeholder adsense-footer-banner max-w-[280px] sm:max-w-[336px] md:max-w-[728px] lg:max-w-[970px] min-h-[90px] mb-4 mx-auto">
+                <span>Ad Space (Responsive)</span>
+            </div>
+            <p class="text-sm sm:text-base md:text-lg" style="color: var(--text-secondary);">
+                © 2025 WhizzyTools. All Rights Reserved.
+            </p>
+            <div class="mt-3 flex justify-center space-x-4 sm:space-x-6">
+                <a href="privacy.html" class="text-sm sm:text-base md:text-lg text-gray-400 hover:underline">Privacy Policy</a>
+                <a href="about.html" class="text-sm sm:text-base md:text-lg text-gray-400 hover:underline">About Us</a>
+                <a href="contact.html" class="text-sm sm:text-base md:text-lg text-gray-400 hover:underline">Contact</a>
+            </div>
+        </footer>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuToggle = document.getElementById('menu-toggle');
+            const mobileMenu = document.getElementById('mobile-menu');
+            menuToggle.addEventListener('click', function() {
+                mobileMenu.classList.toggle('hidden');
+            });
+            const textInput = document.getElementById('qr-text');
+            const qrDisplay = document.getElementById('qrcode-display');
+            const downloadBtn = document.getElementById('download-btn');
+            const clearBtn = document.getElementById('clear-btn');
+            const qrPlaceholder = document.getElementById('qrcode-placeholder');
+            const updateQRCode = () => {
+                const text = textInput.value;
+                qrDisplay.innerHTML = '';
+                if (text) {
+                    clearBtn.classList.remove('hidden');
+                    const canvas = document.createElement('canvas');
+                    qrDisplay.appendChild(canvas);
+                    QRCode.toCanvas(canvas, text, { width: 256, errorCorrectionLevel: 'H' }, function (error) {
+                        if (error) {
+                            console.error(error);
+                            qrDisplay.innerHTML = '<span style="color: red;">Error generating QR Code</span>';
+                            downloadBtn.disabled = true;
+                        } else {
+                            downloadBtn.disabled = false;
+                        }
+                    });
+                } else {
+                    clearBtn.classList.add('hidden');
+                    qrDisplay.appendChild(qrPlaceholder);
+                    downloadBtn.disabled = true;
+                }
+            };
+            const downloadQRCode = () => {
+                const canvas = qrDisplay.querySelector('canvas');
+                if (canvas) {
+                    const link = document.createElement('a');
+                    link.href = canvas.toDataURL("image/png");
+                    link.download = 'whizzytools-qrcode.png';
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                }
+            };
+            const clearInput = () => {
+                textInput.value = '';
+                updateQRCode();
+            };
+            textInput.addEventListener('input', updateQRCode);
+            downloadBtn.addEventListener('click', downloadQRCode);
+            clearBtn.addEventListener('click', clearInput);
+            updateQRCode();
+        });
+    </script>
+</body>
+</html>

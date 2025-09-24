@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Word & Character Counter - WhizzyTools</title>
+    <meta name="description" content="Instantly count words, characters, sentences, and paragraphs in your text. A perfect tool for writers, students, and professionals.">
+    <style>
+        * { box-sizing: border-box; }
+        body { margin: 0; padding: 0; }
+    </style>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/favicons/favicon-16x16.png">
+    <link rel="manifest" href="assets/favicons/site.webmanifest">
+    <link rel="shortcut icon" href="assets/favicons/favicon.ico">
+    <style>
+        :root {
+            --bg-primary: #111827;
+            --bg-secondary: #1F2937;
+            --text-primary: #F3F4F6;
+            --text-secondary: #9CA3AF;
+            --accent-color: #22D3EE;
+            --accent-hover: #67E8F9;
+        }
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            font-family: 'Inter', sans-serif;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Poppins', sans-serif;
+        }
+        textarea {
+            background-color: var(--bg-secondary);
+            border: 1px solid #374151;
+            border-radius: 0.5rem;
+            color: var(--text-primary);
+            resize: none;
+            padding: 0.75rem;
+            sm:padding: 1rem;
+        }
+        textarea:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 2px rgba(34, 211, 238, 0.3);
+        }
+        .stat-card {
+            background-color: var(--bg-secondary);
+            border-radius: 0.5rem;
+            padding: 0.5rem;
+            sm:padding: 1rem;
+            text-align: center;
+            border: 1px solid #374151;
+        }
+        .stat-value {
+            font-size: 1.5rem;
+            sm:font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--accent-color);
+        }
+        .stat-label {
+            font-size: 0.75rem;
+            sm:font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+        .tool-button {
+            background-color: var(--accent-color);
+            color: var(--bg-primary);
+            font-weight: 600;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .tool-button:hover {
+            background-color: var(--accent-hover);
+        }
+        .secondary-button {
+            background-color: #374151;
+            color: var(--text-primary);
+        }
+        .secondary-button:hover {
+            background-color: #4B5563;
+        }
+        .adsense-placeholder {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #374151;
+            border: 2px dashed #4B5563;
+            color: var(--text-secondary);
+            font-size: 0.75rem;
+            border-radius: 0.5rem;
+            width: 100%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .adsense-top-banner {
+            min-height: 90px;
+        }
+        .adsense-footer-banner {
+            min-height: 90px;
+        }
+        @media (max-width: 640px) {
+            .adsense-placeholder {
+                margin: 0.5rem 0;
+            }
+        }
+        @media (max-width: 360px) {
+            .stat-card {
+                padding: 0.5rem;
+            }
+            .grid {
+                gap: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body class="antialiased">
+    <script type="text/javascript">0</script>
+    <div id="page-content">
+        <header class="py-3 px-2 sm:px-4 md:px-6 lg:px-12 flex justify-between items-center sticky top-0 bg-opacity-80 backdrop-blur-md z-50" style="background-color: rgba(17, 24, 39, 0.8);">
+            <a href="index.html" class="flex items-center gap-1.5 group">
+                <img src="assets/images/whizzytoolslogo.svg" alt="WhizzyTools Logo" class="w-7 h-7 sm:w-8 sm:h-8 group-hover:rotate-[-10deg] transition-transform duration-300">
+                <div class="text-lg sm:text-xl md:text-2xl font-bold text-white">
+                    Whizzy<span class="text-[var(--accent-color)]">Tools</span>
+                </div>
+            </a>
+            <nav class="hidden md:flex items-center space-x-4 lg:space-x-6 text-sm md:text-base">
+                <a href="index.html" class="text-gray-300 hover:text-white transition">Home</a>
+                <a href="index.html#tools" class="text-gray-300 hover:text-white transition">All Tools</a>
+                <a href="about.html" class="text-gray-300 hover:text-white transition">About</a>
+                <a href="contact.html" class="text-gray-300 hover:text-white transition">Contact</a>
+            </nav>
+            <div class="hidden md:flex items-center gap-3">
+                <a href="github-gateway.html" class="px-3 py-1.5 text-sm md:text-base font-semibold text-white rounded-md transition" style="background-color: var(--accent-color); color: var(--bg-primary);">GitHub</a>
+            </div>
+            <button id="menu-toggle" class="md:hidden text-white focus:outline-none">
+                <svg class="w-6 h-6 sm:w-7 sm:h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+        </header>
+        <div id="mobile-menu" class="hidden md:hidden bg-[var(--bg-secondary)] px-2 sm:px-4 py-3 border-b border-gray-600">
+            <nav class="flex flex-col space-y-3 text-sm sm:text-base">
+                <a href="index.html" class="text-gray-300 hover:text-white transition">Home</a>
+                <a href="index.html#tools" class="text-gray-300 hover:text-white transition">All Tools</a>
+                <a href="about.html" class="text-gray-300 hover:text-white transition">About</a>
+                <a href="contact.html" class="text-gray-300 hover:text-white transition">Contact</a>
+                <a href="github-gateway.html" class="px-3 py-1.5 text-sm sm:text-base font-semibold text-white rounded-md transition inline-block text-center mx-auto" style="background-color: var(--accent-color); color: var(--bg-primary);">GitHub</a>
+            </nav>
+        </div>
+        <main class="px-2 sm:px-4 md:px-6 lg:px-12 pb-6 flex-1">
+            <div class="text-center max-w-[95%] sm:max-w-[90%] md:max-w-2xl lg:max-w-3xl mx-auto my-4 sm:my-6 md:my-8">
+                <h1 class="text-base sm:text-lg md:text-xl lg:text-2xl font-bold tracking-tight">Word & Character Counter</h1>
+                <p class="mt-2 sm:mt-3 md:mt-4 text-sm sm:text-base md:text-lg" style="color: var(--text-secondary);">
+                    Paste your text below to get an instant analysis of your word, character, sentence, and paragraph count.
+                </p>
+            </div>
+            <div class="adsense-placeholder adsense-top-banner max-w-[280px] sm:max-w-[336px] md:max-w-[728px] lg:max-w-[970px] min-h-[90px] my-2 sm:my-3 md:my-4 mx-auto">
+                <span>Ad Space (Responsive)</span>
+            </div>
+            <div class="max-w-[95%] sm:max-w-[90%] md:max-w-lg lg:max-w-xl mx-auto mt-4 sm:mt-6 md:mt-8">
+                <div class="flex justify-end items-center mb-2">
+                    <button id="clear-btn" class="tool-button secondary-button !p-2 hidden" title="Clear text">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+                <textarea id="text-input" class="w-full h-64 sm:h-80 p-3 sm:p-4" placeholder="Start typing or paste your text here..."></textarea>
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-4 mt-4">
+                    <div class="stat-card">
+                        <div id="word-count" class="stat-value">0</div>
+                        <div class="stat-label">Words</div>
+                    </div>
+                    <div class="stat-card">
+                        <div id="char-count" class="stat-value">0</div>
+                        <div class="stat-label">Characters</div>
+                    </div>
+                    <div class="stat-card">
+                        <div id="sentence-count" class="stat-value">0</div>
+                        <div class="stat-label">Sentences</div>
+                    </div>
+                    <div class="stat-card">
+                        <div id="paragraph-count" class="stat-value">0</div>
+                        <div class="stat-label">Paragraphs</div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer class="text-center py-6 px-2 sm:px-4 md:px-6 lg:px-12 mt-10 border-t" style="border-color: #374151;">
+            <div class="adsense-placeholder adsense-footer-banner max-w-[280px] sm:max-w-[336px] md:max-w-[728px] lg:max-w-[970px] min-h-[90px] mb-4 mx-auto">
+                <span>Ad Space (Responsive)</span>
+            </div>
+            <p class="text-sm sm:text-base md:text-lg" style="color: var(--text-secondary);">
+                © 2025 WhizzyTools. All Rights Reserved.
+            </p>
+            <div class="mt-3 flex justify-center space-x-4 sm:space-x-6">
+                <a href="privacy.html" class="text-sm sm:text-base md:text-lg text-gray-400 hover:underline">Privacy Policy</a>
+                <a href="about.html" class="text-sm sm:text-base md:text-lg text-gray-400 hover:underline">About Us</a>
+                <a href="contact.html" class="text-sm sm:text-base md:text-lg text-gray-400 hover:underline">Contact</a>
+            </div>
+        </footer>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuToggle = document.getElementById('menu-toggle');
+            const mobileMenu = document.getElementById('mobile-menu');
+            menuToggle.addEventListener('click', function() {
+                mobileMenu.classList.toggle('hidden');
+            });
+            const textInput = document.getElementById('text-input');
+            const wordCountEl = document.getElementById('word-count');
+            const charCountEl = document.getElementById('char-count');
+            const sentenceCountEl = document.getElementById('sentence-count');
+            const paragraphCountEl = document.getElementById('paragraph-count');
+            const clearBtn = document.getElementById('clear-btn');
+            const updateCounts = () => {
+                const text = textInput.value;
+                charCountEl.textContent = text.length.toLocaleString();
+                const words = text.match(/\b\w+\b/g) || [];
+                wordCountEl.textContent = words.length.toLocaleString();
+                const sentences = text.match(/[^.!?]+[.!?]+/g) || [];
+                sentenceCountEl.textContent = sentences.length.toLocaleString();
+                const paragraphs = text.split(/\n+/).filter(p => p.trim().length > 0);
+                paragraphCountEl.textContent = paragraphs.length.toLocaleString();
+                if (text.length > 0) {
+                    clearBtn.classList.remove('hidden');
+                } else {
+                    clearBtn.classList.add('hidden');
+                }
+            };
+            const clearInput = () => {
+                textInput.value = '';
+                updateCounts();
+                textInput.focus();
+            };
+            textInput.addEventListener('input', updateCounts);
+            clearBtn.addEventListener('click', clearInput);
+            updateCounts();
+        });
+    </script>
+</body>
+</html>

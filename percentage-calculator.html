@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Percentage Calculator - WhizzyTools</title>
+    <meta name="description" content="A free and easy-to-use percentage calculator with three functions: calculate percentages, proportions, and percentage increase or decrease.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/favicons/favicon-16x16.png">
+    <link rel="manifest" href="assets/favicons/site.webmanifest">
+    <link rel="shortcut icon" href="assets/favicons/favicon.ico">
+    <style>
+        :root {
+            --bg-primary: #111827;
+            --bg-secondary: #1F2937;
+            --text-primary: #F3F4F6;
+            --text-secondary: #9CA3AF;
+            --accent-color: #22D3EE;
+            --accent-hover: #67E8F9;
+            --success-color: #34D399;
+            --error-color: #F87171;
+        }
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Poppins', sans-serif;
+        }
+        .tool-button {
+            background-color: var(--accent-color);
+            color: var(--bg-primary);
+            font-weight: 600;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .tool-button:hover {
+            background-color: var(--accent-hover);
+        }
+        .secondary-button {
+            background-color: #374151;
+            color: var(--text-primary);
+        }
+        .secondary-button:hover {
+            background-color: #4B5563;
+        }
+        .calculator-card {
+            background-color: var(--bg-secondary);
+            border-radius: 0.75rem;
+            border: 1px solid #374151;
+            padding: 1.5rem;
+            min-height: 300px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .tool-input {
+            background-color: var(--bg-primary);
+            border: 1px solid #374151;
+            border-radius: 0.5rem;
+            padding: 0.75rem 1rem;
+            width: 100%;
+            min-width: 80px;
+            color: var(--text-primary);
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        .tool-input:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 2px rgba(34, 211, 238, 0.3);
+        }
+        .result-box {
+            background-color: var(--bg-primary);
+            border-radius: 0.5rem;
+            padding: 0.75rem;
+            text-align: center;
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--accent-color);
+            border: 1px solid #374151;
+            min-height: 3rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .adsense-placeholder {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #374151;
+            border: 2px dashed #4B5563;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            border-radius: 0.5rem;
+            margin: 1.5rem auto;
+            width: 100%;
+            max-width: 728px;
+            min-height: 90px;
+        }
+        .adsense-mid-content {
+            max-width: 300px;
+            min-height: 250px;
+        }
+        @media screen and (max-width: 768px) {
+            .adsense-placeholder {
+                max-width: 100%;
+                min-height: 50px;
+            }
+            .adsense-mid-content {
+                max-width: 300px;
+                min-height: 250px;
+            }
+        }
+        .mobile-menu {
+            transition: transform 0.3s ease-in-out;
+        }
+        .mobile-menu-open {
+            transform: translateX(0);
+        }
+        .mobile-menu-closed {
+            transform: translateX(100%);
+        }
+    </style>
+</head>
+<body class="antialiased">
+    <header class="py-4 px-4 sm:px-6 md:px-12 flex justify-between items-center sticky top-0 bg-opacity-80 backdrop-blur-md" style="background-color: rgba(17, 24, 39, 0.8);">
+        <a href="index.html" class="flex items-center gap-2 group">
+            <img src="assets/images/whizzytoolslogo.svg" alt="WhizzyTools Logo" class="w-8 h-8 group-hover:rotate-[-10deg] transition-transform duration-300">
+            <div class="text-2xl font-bold text-white">Whizzy<span class="text-[var(--accent-color)]">Tools</span></div>
+        </a>
+        <nav class="hidden md:flex items-center space-x-6 text-sm">
+            <a href="index.html" class="text-gray-300 hover:text-white transition">Home</a>
+            <a href="index.html#tools" class="text-gray-300 hover:text-white transition">All Tools</a>
+            <a href="about.html" class="text-gray-300 hover:text-white transition">About</a>
+            <a href="contact.html" class="text-gray-300 hover:text-white transition">Contact</a>
+        </nav>
+        <button id="mobile-menu-toggle" class="md:hidden text-white focus:outline-none">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+            </svg>
+        </button>
+        <a href="github-gateway.html" class="hidden md:inline-block px-4 py-2 text-sm font-semibold text-white rounded-md transition" style="background-color: var(--accent-color); color: var(--bg-primary);">GitHub</a>
+    </header>
+    <nav id="mobile-menu" class="mobile-menu mobile-menu-closed md:hidden fixed top-0 right-0 h-full w-64 bg-[var(--bg-secondary)] p-6 z-50">
+        <button id="mobile-menu-close" class="text-white mb-4 focus:outline-none">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+        </button>
+        <div class="flex flex-col space-y-4 text-sm">
+            <a href="index.html" class="text-gray-300 hover:text-white transition">Home</a>
+            <a href="index.html#tools" class="text-gray-300 hover:text-white transition">All Tools</a>
+            <a href="about.html" class="text-gray-300 hover:text-white transition">About</a>
+            <a href="contact.html" class="text-gray-300 hover:text-white transition">Contact</a>
+            <a href="github-gateway.html" class="text-gray-300 hover:text-white transition">GitHub</a>
+        </div>
+    </nav>
+    <main class="py-12 px-4 sm:px-6 flex-1">
+        <div class="text-center max-w-3xl mx-auto">
+            <h1 class="text-3xl sm:text-4xl font-bold tracking-tight">Percentage Calculator</h1>
+            <p class="mt-4 text-base sm:text-lg" style="color: var(--text-secondary);">
+                Three essential percentage calculators in one place. All calculations are done in real-time as you type.
+            </p>
+        </div>
+        <div class="adsense-placeholder adsense-top-banner mt-8"><span>Ad Space (Responsive)</span></div>
+        <div class="max-w-7xl mx-auto mt-12 grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div class="flex flex-col">
+                <div class="w-full flex justify-end mb-2">
+                    <button id="c1-clear-btn" class="tool-button secondary-button !p-3 hidden" title="Clear entry">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                    </button>
+                </div>
+                <div class="calculator-card">
+                    <h2 class="text-xl font-bold text-center mb-4">What is X% of Y?</h2>
+                    <div class="space-y-4 w-full flex-1">
+                        <div class="flex flex-col sm:flex-row items-center gap-2 sm:gap-3">
+                            <input type="number" id="c1-percent" class="tool-input" placeholder="X %">
+                            <span class="text-gray-400">of</span>
+                            <input type="number" id="c1-value" class="tool-input" placeholder="Y">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-400 mb-1">Result</label>
+                            <div id="c1-result" class="result-box">-</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="flex flex-col">
+                <div class="w-full flex justify-end mb-2">
+                    <button id="c2-clear-btn" class="tool-button secondary-button !p-3 hidden" title="Clear entry">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                    </button>
+                </div>
+                <div class="calculator-card">
+                    <h2 class="text-xl font-bold text-center mb-4">X is what % of Y?</h2>
+                    <div class="space-y-4 w-full flex-1">
+                        <div class="flex flex-col sm:flex-row items-center gap-2 sm:gap-3">
+                            <input type="number" id="c2-value1" class="tool-input" placeholder="X">
+                            <span class="text-gray-400">is what % of</span>
+                            <input type="number" id="c2-value2" class="tool-input" placeholder="Y">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-400 mb-1">Result</label>
+                            <div id="c2-result" class="result-box">-</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="flex flex-col">
+                <div class="w-full flex justify-end mb-2">
+                    <button id="c3-clear-btn" class="tool-button secondary-button !p-3 hidden" title="Clear entry">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                    </button>
+                </div>
+                <div class="calculator-card">
+                    <h2 class="text-xl font-bold text-center mb-4">% Increase / Decrease</h2>
+                    <div class="space-y-4 w-full flex-1">
+                        <div class="flex flex-col sm:flex-row items-center gap-2 sm:gap-3">
+                            <span class="text-gray-400">From</span>
+                            <input type="number" id="c3-from" class="tool-input" placeholder="Initial">
+                            <span class="text-gray-400">to</span>
+                            <input type="number" id="c3-to" class="tool-input" placeholder="Final">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-400 mb-1">Result</label>
+                            <div id="c3-result" class="result-box">-</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="adsense-placeholder adsense-mid-content mt-8"><span>Ad Space (300x250)</span></div>
+    </main>
+    <footer class="text-center py-8 px-4 sm:px-6 mt-12 border-t" style="border-color: #374151;">
+        <div class="adsense-placeholder adsense-top-banner mb-8"><span>Ad Space (Responsive)</span></div>
+        <p class="text-sm" style="color: var(--text-secondary);">© 2025 WhizzyTools. All Rights Reserved.</p>
+        <div class="mt-4 flex justify-center space-x-6">
+            <a href="privacy.html" class="text-xs text-gray-400 hover:underline">Privacy Policy</a>
+            <a href="about.html" class="text-xs text-gray-400 hover:underline">About Us</a>
+            <a href="contact.html" class="text-xs text-gray-400 hover:underline">Contact</a>
+        </div>
+    </footer>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuToggle = document.getElementById('mobile-menu-toggle');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const menuClose = document.getElementById('mobile-menu-close');
+            if (menuToggle && mobileMenu && menuClose) {
+                menuToggle.addEventListener('click', () => {
+                    mobileMenu.classList.remove('mobile-menu-closed');
+                    mobileMenu.classList.add('mobile-menu-open');
+                });
+                menuClose.addEventListener('click', () => {
+                    mobileMenu.classList.remove('mobile-menu-open');
+                    mobileMenu.classList.add('mobile-menu-closed');
+                });
+            }
+            function clearCalculator1() {
+                c1_percent.value = '';
+                c1_value.value = '';
+                calc1();
+            }
+            function clearCalculator2() {
+                c2_value1.value = '';
+                c2_value2.value = '';
+                calc2();
+            }
+            function clearCalculator3() {
+                c3_from.value = '';
+                c3_to.value = '';
+                calc3();
+            }
+            const c1_percent = document.getElementById('c1-percent');
+            const c1_value = document.getElementById('c1-value');
+            const c1_result = document.getElementById('c1-result');
+            const c1_clearBtn = document.getElementById('c1-clear-btn');
+            function calc1() {
+                const p = parseFloat(c1_percent.value);
+                const v = parseFloat(c1_value.value);
+                if (isNaN(p) && isNaN(v)) {
+                    c1_result.textContent = '-';
+                    c1_clearBtn.classList.add('hidden');
+                } else {
+                    c1_result.textContent = (v * (p / 100)).toLocaleString();
+                    c1_clearBtn.classList.remove('hidden');
+                }
+            }
+            const c2_value1 = document.getElementById('c2-value1');
+            const c2_value2 = document.getElementById('c2-value2');
+            const c2_result = document.getElementById('c2-result');
+            const c2_clearBtn = document.getElementById('c2-clear-btn');
+            function calc2() {
+                const v1 = parseFloat(c2_value1.value);
+                const v2 = parseFloat(c2_value2.value);
+                if (isNaN(v1) && isNaN(v2) || v2 === 0) {
+                    c2_result.textContent = '-';
+                    c2_clearBtn.classList.add('hidden');
+                } else {
+                    c2_result.textContent = `${((v1 / v2) * 100).toLocaleString()}%`;
+                    c2_clearBtn.classList.remove('hidden');
+                }
+            }
+            const c3_from = document.getElementById('c3-from');
+            const c3_to = document.getElementById('c3-to');
+            const c3_result = document.getElementById('c3-result');
+            const c3_clearBtn = document.getElementById('c3-clear-btn');
+            function calc3() {
+                const from = parseFloat(c3_from.value);
+                const to = parseFloat(c3_to.value);
+                if (isNaN(from) && isNaN(to)) {
+                    c3_result.textContent = '-';
+                    c3_result.style.color = 'var(--accent-color)';
+                    c3_clearBtn.classList.add('hidden');
+                } else {
+                    const change = ((to - from) / from) * 100;
+                    const prefix = change >= 0 ? '▲' : '▼';
+                    const color = change >= 0 ? 'var(--success-color)' : 'var(--error-color)';
+                    c3_result.style.color = color;
+                    c3_result.textContent = `${prefix} ${Math.abs(change).toLocaleString()}%`;
+                    c3_clearBtn.classList.remove('hidden');
+                }
+            }
+            c1_percent.addEventListener('input', calc1);
+            c1_value.addEventListener('input', calc1);
+            c1_clearBtn.addEventListener('click', clearCalculator1);
+            c2_value1.addEventListener('input', calc2);
+            c2_value2.addEventListener('input', calc2);
+            c2_clearBtn.addEventListener('click', clearCalculator2);
+            c3_from.addEventListener('input', calc3);
+            c3_to.addEventListener('input', calc3);
+            c3_clearBtn.addEventListener('click', clearCalculator3);
+            calc1();
+            calc2();
+            calc3();
+        });
+    </script>
+</body>
+</html>
