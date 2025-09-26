@@ -38,8 +38,9 @@
         .mobile-menu-open { transform: translateX(0); }
         .mobile-menu-closed { transform: translateX(100%); }
         #form-error-message { background: #991b1b; color: white; padding: 1rem; border-radius: 0.5rem; margin-top: 1rem; text-align: center; display: none; }
+        /* A classe 'hidden' é para ser usada no HTML para esconder. A classe 'show' para mostrar via JS. */
         #success-popup { display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: #15803d; color: white; padding: 2rem; border-radius: 0.5rem; z-index: 10000; text-align: center; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); }
-        #success-popup.show { display: block; }
+        #success-popup.show { display: block; } /* Esta regra garante que '.show' funcione */
     </style>
 </head>
 <body class="antialiased">
@@ -115,8 +116,9 @@
                 <div id="form-error-message" style="display: none; background: #991b1b; color: white; padding: 1rem; border-radius: 0.5rem; margin-top: 1rem; text-align: center;">
                     Error: Failed to send your message. Please try again later.
                 </div>
+                <!-- MENSAGEM DO POPUP ALTERADA AQUI -->
                 <div id="success-popup" class="hidden" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: #15803d; color: white; padding: 2rem; border-radius: 0.5rem; z-index: 10000; text-align: center; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
-                    <p>Thank you! Your message has been sent successfully.</p>
+                    <p>Thank you for contacting us. We will respond to your message shortly.</p>
                 </div>
             </div>
         </main>
@@ -164,11 +166,15 @@
                 })
                 .then(response => {
                     if (response.ok) {
-                        successPopup.classList.remove('hidden');
-                        setTimeout(() => {
-                            window.location.href = 'index.html#tools';
-                        }, 2000);
+                        // Limpa o formulário imediatamente após o sucesso
                         form.reset();
+                        // Mostra o popup de sucesso
+                        successPopup.classList.add('show'); // ALTERADO AQUI: Adiciona a classe 'show'
+                        // Define um temporizador para esconder o popup e redirecionar
+                        setTimeout(() => {
+                            successPopup.classList.remove('show'); // Esconde o popup
+                            window.location.href = 'index.html#tools'; // Redireciona
+                        }, 2000); // 2 segundos
                     } else {
                         errorMessage.style.display = 'block';
                     }
