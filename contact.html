@@ -39,7 +39,7 @@
         .mobile-menu-closed { transform: translateX(100%); }
         #form-error-message { background: #991b1b; color: white; padding: 1rem; border-radius: 0.5rem; margin-top: 1rem; text-align: center; display: none; }
         
-        /* ALTERADO AQUI: Estilo do Popup de Sucesso */
+        /* ESTILO DO POPUP DE SUCESSO: MAIS LARGA QUE ALTA (proporção 4:3) */
         #success-popup {
             display: none;
             position: fixed;
@@ -47,17 +47,47 @@
             left: 50%;
             transform: translate(-50%, -50%);
             background: var(--bg-secondary); /* Cor de fundo compatível com o site */
-            color: var(--text-primary); /* Cor do texto principal */
-            padding: 1.5rem 2.5rem; /* Diminui a altura, aumenta a largura */
+            color: var(--text-primary);
             border-radius: 0.5rem;
             z-index: 10000;
             text-align: center;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             border: 1px solid white; /* Borda fina branca */
-            max-width: 90%; /* Garante que não ultrapasse a largura da tela em dispositivos menores */
-            min-width: 300px; /* Largura mínima para ser legível */
+            
+            /* Largura base da popup. Ajuste este valor (ex: 400px, 500px) para controlar o tamanho geral. */
+            width: 400px; /* Largura inicial */
+            max-width: 90%; /* Responsividade: Garante que não ultrapasse 90% da largura da tela */
+            min-width: 280px; /* Largura mínima para ser legível em telas pequenas */
+            
+            /* O padding direto foi removido daqui e será aplicado no conteúdo interno para a proporção */
+            padding: 0; 
         }
         #success-popup.show { display: block; }
+
+        /* NOVO ELEMENTO INTERNO PARA FORÇAR A PROPORÇÃO LARGURA:ALTURA = 4:3 (mais larga que alta) */
+        #success-popup .aspect-ratio-content {
+            position: relative;
+            width: 100%; /* Ocupa 100% da largura do #success-popup */
+            height: 0; /* Truque CSS para manter a proporção */
+            /* AQUI ESTÁ A MÁGICA: padding-top calcula a altura como 3/4 (75%) da largura, resultando em 4:3 */
+            padding-top: calc(3 / 4 * 100%); 
+            overflow: hidden; /* Garante que o conteúdo não vaze */
+        }
+
+        /* Estilo para o parágrafo de texto dentro do container de proporção */
+        #success-popup p {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            margin: 0; /* Remove a margem padrão do parágrafo */
+            display: flex; /* Para centralizar o texto vertical e horizontalmente */
+            align-items: center; /* Centraliza verticalmente */
+            justify-content: center; /* Centraliza horizontalmente */
+            padding: 1.5rem; /* Padding interno para o texto não colar nas bordas */
+            box-sizing: border-box; /* Inclui padding na altura/largura */
+        }
     </style>
 </head>
 <body class="antialiased">
@@ -133,9 +163,11 @@
                 <div id="form-error-message" style="display: none; background: #991b1b; color: white; padding: 1rem; border-radius: 0.5rem; margin-top: 1rem; text-align: center;">
                     Error: Failed to send your message. Please try again later.
                 </div>
-                <!-- Mensagem já alterada -->
+                <!-- Estrutura do popup com o container de proporção -->
                 <div id="success-popup" class="hidden">
-                    <p>Thank you for contacting us. We will respond to your message shortly.</p>
+                    <div class="aspect-ratio-content">
+                        <p>Thank you for contacting us. We will respond to your message shortly.</p>
+                    </div>
                 </div>
             </div>
         </main>
@@ -185,7 +217,7 @@
                     if (response.ok) {
                         form.reset();
                         successPopup.classList.add('show');
-                        // ALTERADO AQUI: Duração do popup para 4 segundos
+                        // Duração do popup para 4 segundos
                         setTimeout(() => {
                             successPopup.classList.remove('show');
                             window.location.href = 'index.html#tools';
