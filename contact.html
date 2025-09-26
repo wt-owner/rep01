@@ -23,133 +23,24 @@
             --accent-color: #22D3EE;
             --accent-hover: #67E8F9;
         }
-        body {
-            background-color: var(--bg-primary);
-            color: var(--text-primary);
-            font-family: 'Inter', sans-serif;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
-        h1, h2, h3, h4, h5, h6 {
-            font-family: 'Poppins', sans-serif;
-        }
-        .tool-button {
-            background-color: var(--accent-color);
-            color: var(--bg-primary);
-            font-weight: 600;
-            padding: 0.75rem 1.5rem;
-            border-radius: 0.5rem;
-            border: none;
-            cursor: pointer;
-            transition: background-color 0.2s;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-        }
-        .tool-button:hover { background-color: var(--accent-hover); }
-        .tool-button:disabled {
-            background-color: #4B5563;
-            cursor: not-allowed;
-        }
-        .adsense-placeholder {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background-color: #374151;
-            border: 2px dashed #4B5563;
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-            border-radius: 0.5rem;
-            margin: 1.5rem auto;
-            width: 100%;
-            max-width: 728px;
-            min-height: 90px;
-        }
-        @media screen and (max-width: 768px) {
-            .adsense-placeholder {
-                max-width: 100%;
-                min-height: 50px;
-            }
-        }
-        #adblock-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(17, 24, 39, 0.95);
-            color: white;
-            z-index: 9999;
-            display: none;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            flex-direction: column;
-            backdrop-filter: blur(5px);
-        }
-        #adblock-overlay h1 {
-            font-size: 1.5rem;
-            color: var(--accent-color);
-            margin-bottom: 1rem;
-        }
-        #adblock-overlay p {
-            font-size: 1rem;
-            max-width: 90%;
-            margin: 0.5rem;
-            color: var(--text-primary);
-        }
-        .adblock-icon {
-            width: 60px;
-            height: 60px;
-            stroke-width: 1.5;
-            color: var(--accent-color);
-            margin-bottom: 1rem;
-        }
-        .ads-banner-bait {
-            height: 1px !important;
-            width: 1px !important;
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            opacity: 0.01;
-            pointer-events: none;
-        }
-        .mobile-menu {
-            transition: transform 0.3s ease-in-out;
-        }
-        .mobile-menu-open {
-            transform: translateX(0);
-        }
-        .mobile-menu-closed {
-            transform: translateX(100%);
-        }
-        #form-error-message {
-            background-color: #991b1b;
-            color: white;
-            padding: 1rem;
-            border-radius: 0.5rem;
-            margin-top: 1rem;
-            text-align: center;
-        }
-        #success-popup {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: #15803d;
-            color: white;
-            padding: 2rem;
-            border-radius: 0.5rem;
-            z-index: 10000;
-            text-align: center;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-        #success-popup.show {
-            display: block;
-        }
+        body { background: var(--bg-primary); color: var(--text-primary); font-family: 'Inter', sans-serif; min-height: 100vh; display: flex; flex-direction: column; }
+        h1, h2, h3, h4, h5, h6 { font-family: 'Poppins', sans-serif; }
+        .tool-button { background: var(--accent-color); color: var(--bg-primary); font-weight: 600; padding: 0.75rem 1.5rem; border-radius: 0.5rem; border: none; cursor: pointer; transition: background-color 0.2s; }
+        .tool-button:hover { background: var(--accent-hover); }
+        .tool-button:disabled { background: #4B5563; cursor: not-allowed; }
+        .adsense-placeholder { display: flex; align-items: center; justify-content: center; background: #374151; border: 2px dashed #4B5563; color: var(--text-secondary); font-size: 0.9rem; border-radius: 0.5rem; margin: 1.5rem auto; width: 100%; max-width: 728px; min-height: 90px; }
+        @media (max-width: 768px) { .adsense-placeholder { max-width: 100%; min-height: 50px; } }
+        #adblock-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(17, 24, 39, 0.95); color: white; z-index: 9999; display: none; justify-content: center; align-items: center; text-align: center; flex-direction: column; backdrop-filter: blur(5px); }
+        #adblock-overlay h1 { font-size: 1.5rem; color: var(--accent-color); margin-bottom: 1rem; }
+        #adblock-overlay p { font-size: 1rem; max-width: 90%; margin: 0.5rem; color: var(--text-primary); }
+        .adblock-icon { width: 60px; height: 60px; stroke-width: 1.5; color: var(--accent-color); margin-bottom: 1rem; }
+        .ads-banner-bait { height: 1px !important; width: 1px !important; position: fixed; bottom: 0; left: 0; opacity: 0.01; pointer-events: none; }
+        .mobile-menu { transition: transform 0.3s ease-in-out; }
+        .mobile-menu-open { transform: translateX(0); }
+        .mobile-menu-closed { transform: translateX(100%); }
+        #form-error-message { background: #991b1b; color: white; padding: 1rem; border-radius: 0.5rem; margin-top: 1rem; text-align: center; display: none; }
+        #success-popup { display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: #15803d; color: white; padding: 2rem; border-radius: 0.5rem; z-index: 10000; text-align: center; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); }
+        #success-popup.show { display: block; }
     </style>
 </head>
 <body class="antialiased">
@@ -206,9 +97,7 @@
                 <form name="contact" netlify data-netlify="true" netlify-honeypot="bot-field" method="POST">
                     <input type="hidden" name="form-name" value="contact">
                     <p class="hidden">
-                        <label>
-                            Don’t fill this out: <input name="bot-field">
-                        </label>
+                        <label>Don’t fill this out: <input name="bot-field"></label>
                     </p>
                     <div class="mb-4">
                         <label for="name" class="block text-sm font-medium mb-1">Your Name</label>
@@ -222,10 +111,11 @@
                         <label for="message" class="block text-sm font-medium mb-1">Message</label>
                         <textarea name="message" id="message" rows="5" required class="w-full px-4 py-2 bg-gray-700 text-white rounded-md border border-gray-600 focus:outline-none focus:ring-2 focus:ring-[var(--accent-color)]"></textarea>
                     </div>
-                    <button type="submit" class="tool-button w-1/2 mx-auto" id="submit-button">Send Message</button>
+                    <button type="submit" class="tool-button w-1/2 mx-auto">Send Message</button>
                 </form>
-                <div id="form-error-message" class="hidden mt-4 text-center p-4 rounded-md" style="background-color: #991b1b; color: white;">
-                    Error: Failed to send your message. Please try again later.
+                <div id="form-error-message">Error: Failed to send your message. Please try again later.</div>
+                <div id="success-popup" class="hidden">
+                    <p>Thank you! Your message has been sent successfully.</p>
                 </div>
             </div>
         </main>
@@ -240,26 +130,18 @@
         </footer>
     </div>
     <div class="ads-banner-bait"></div>
-    <div id="success-popup" class="hidden">
-        <p>Thank you! Your message has been sent successfully.</p>
-    </div>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // AdBlocker logic
             const baitElement = document.querySelector('.ads-banner-bait');
             const overlay = document.getElementById('adblock-overlay');
             const pageContent = document.getElementById('page-content');
-            function checkAdBlocker() {
-                if (baitElement.offsetHeight === 0) {
-                    overlay.style.display = 'flex';
-                    pageContent.style.opacity = '0.3';
-                } else {
-                    overlay.style.display = 'none';
-                    pageContent.style.opacity = '1';
-                }
+            if (baitElement.offsetHeight === 0) {
+                overlay.style.display = 'flex';
+                pageContent.style.opacity = '0.3';
+            } else {
+                overlay.style.display = 'none';
+                pageContent.style.opacity = '1';
             }
-            setTimeout(checkAdBlocker, 150);
-            // Mobile menu toggle
             const menuToggle = document.getElementById('mobile-menu-toggle');
             const mobileMenu = document.getElementById('mobile-menu');
             const menuClose = document.getElementById('mobile-menu-close');
@@ -271,17 +153,11 @@
                 mobileMenu.classList.remove('mobile-menu-open');
                 mobileMenu.classList.add('mobile-menu-closed');
             });
-            // Netlify Forms Submission with popup and redirect
             const form = document.querySelector('form[name="contact"]');
-            const submitButton = document.getElementById('submit-button');
             const errorMessage = document.getElementById('form-error-message');
             const successPopup = document.getElementById('success-popup');
             form.addEventListener('submit', e => {
-                e.preventDefault(); // Prevent default to handle response
-                submitButton.disabled = true;
-                submitButton.textContent = 'Sending...';
-                errorMessage.classList.add('hidden');
-
+                e.preventDefault();
                 fetch('/', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
@@ -289,23 +165,17 @@
                 })
                 .then(response => {
                     if (response.ok) {
-                        successPopup.classList.add('show');
-                        // Redirect to All Tools after 2 seconds
+                        successPopup.classList.remove('hidden');
                         setTimeout(() => {
                             window.location.href = 'index.html#tools';
                         }, 2000);
                         form.reset();
                     } else {
-                        throw new Error('Submission failed');
+                        errorMessage.style.display = 'block';
                     }
                 })
-                .catch(error => {
-                    errorMessage.classList.remove('hidden');
-                    console.error('Form submission error:', error);
-                })
-                .finally(() => {
-                    submitButton.disabled = false;
-                    submitButton.textContent = 'Send Message';
+                .catch(() => {
+                    errorMessage.style.display = 'block';
                 });
             });
         });
