@@ -133,6 +133,23 @@
             margin-top: 1rem;
             text-align: center;
         }
+        #success-popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #15803d;
+            color: white;
+            padding: 2rem;
+            border-radius: 0.5rem;
+            z-index: 10000;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        #success-popup.show {
+            display: block;
+        }
     </style>
 </head>
 <body class="antialiased">
@@ -152,7 +169,7 @@
             </a>
             <nav class="hidden md:flex items-center space-x-6 text-sm">
                 <a href="index.html" class="text-gray-300 hover:text-white transition">Home</a>
-                <a href="#tools" class="text-gray-300 hover:text-white transition">All Tools</a>
+                <a href="index.html#tools" class="text-gray-300 hover:text-white transition">All Tools</a>
                 <a href="about.html" class="text-gray-300 hover:text-white transition">About</a>
                 <a href="contact.html" class="text-gray-300 hover:text-white transition">Contact</a>
             </nav>
@@ -171,7 +188,7 @@
             </button>
             <div class="flex flex-col space-y-4 text-sm">
                 <a href="index.html" class="text-gray-300 hover:text-white transition">Home</a>
-                <a href="#tools" class="text-gray-300 hover:text-white transition">All Tools</a>
+                <a href="index.html#tools" class="text-gray-300 hover:text-white transition">All Tools</a>
                 <a href="about.html" class="text-gray-300 hover:text-white transition">About</a>
                 <a href="contact.html" class="text-gray-300 hover:text-white transition">Contact</a>
                 <a href="github-gateway.html" class="text-gray-300 hover:text-white transition">GitHub</a>
@@ -186,7 +203,7 @@
             </div>
             <div class="adsense-placeholder mt-8"><span>Ad Space (Responsive)</span></div>
             <div class="max-w-md mx-auto mt-12 p-6 sm:p-8 rounded-xl border border-gray-700" style="background-color: var(--bg-secondary);">
-                <form name="contact" netlify data-netlify="true" netlify-honeypot="bot-field" action="/success" method="POST">
+                <form name="contact" netlify data-netlify="true" netlify-honeypot="bot-field" method="POST">
                     <input type="hidden" name="form-name" value="contact">
                     <p class="hidden">
                         <label>
@@ -207,9 +224,6 @@
                     </div>
                     <button type="submit" class="tool-button w-1/2 mx-auto" id="submit-button">Send Message</button>
                 </form>
-                <div id="form-success-message" class="hidden mt-4 text-center p-4 rounded-md" style="background-color: #15803d; color: white;">
-                    Thank you! Your message has been sent successfully.
-                </div>
                 <div id="form-error-message" class="hidden mt-4 text-center p-4 rounded-md" style="background-color: #991b1b; color: white;">
                     Error: Failed to send your message. Please try again later.
                 </div>
@@ -226,6 +240,9 @@
         </footer>
     </div>
     <div class="ads-banner-bait"></div>
+    <div id="success-popup" class="hidden">
+        <p>Thank you! Your message has been sent successfully.</p>
+    </div>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // AdBlocker logic
@@ -254,27 +271,29 @@
                 mobileMenu.classList.remove('mobile-menu-open');
                 mobileMenu.classList.add('mobile-menu-closed');
             });
-            // Netlify Forms Submission
+            // Netlify Forms Submission with popup and redirect
             const form = document.querySelector('form[name="contact"]');
             const submitButton = document.getElementById('submit-button');
-            const successMessage = document.getElementById('form-success-message');
             const errorMessage = document.getElementById('form-error-message');
+            const successPopup = document.getElementById('success-popup');
             form.addEventListener('submit', e => {
-                e.preventDefault();
+                e.preventDefault(); // Prevent default to handle response
                 submitButton.disabled = true;
                 submitButton.textContent = 'Sending...';
-                successMessage.classList.add('hidden');
                 errorMessage.classList.add('hidden');
-                const myForm = e.target;
-                const formData = new FormData(myForm);
+
                 fetch('/', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                    body: new URLSearchParams(formData).toString(),
+                    body: new URLSearchParams(new FormData(form)).toString(),
                 })
                 .then(response => {
                     if (response.ok) {
-                        successMessage.classList.remove('hidden');
+                        successPopup.classList.add('show');
+                        // Redirect to All Tools after 2 seconds
+                        setTimeout(() => {
+                            window.location.href = 'index.html#tools';
+                        }, 2000);
                         form.reset();
                     } else {
                         throw new Error('Submission failed');
