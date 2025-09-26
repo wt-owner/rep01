@@ -25,7 +25,7 @@
         }
         body { background: var(--bg-primary); color: var(--text-primary); font-family: 'Inter', sans-serif; min-height: 100vh; display: flex; flex-direction: column; }
         h1, h2, h3, h4, h5, h6 { font-family: 'Poppins', sans-serif; }
-        .tool-button { background: var(--accent-color); color: var(--bg-primary); font-weight: 600; padding: 0.75rem 1.5rem; border-radius: 0.5rem; border: none; cursor: pointer; transition: background-color 0.2s; }
+        .tool-button { background: var(--accent-color); color: var(--bg-primary); font-weight: 600; padding: 0.75rem 1.5rem; border-radius: 0.5rem; border: none; cursor: pointer; transition: background-color 0.2s; display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; }
         .tool-button:hover { background: var(--accent-hover); }
         .adsense-placeholder { display: flex; align-items: center; justify-content: center; background: #374151; border: 2px dashed #4B5563; color: var(--text-secondary); font-size: 0.9rem; border-radius: 0.5rem; margin: 1.5rem auto; width: 100%; max-width: 728px; min-height: 90px; }
         @media (max-width: 768px) { .adsense-placeholder { max-width: 100%; min-height: 50px; } }
@@ -93,7 +93,7 @@
             </div>
             <div class="adsense-placeholder mt-8"><span>Ad Space (Responsive)</span></div>
             <div class="max-w-md mx-auto mt-12 p-6 sm:p-8 rounded-xl border border-gray-700" style="background-color: var(--bg-secondary);">
-                <form name="contact" data-netlify="true" netlify-honeypot="bot-field" method="POST" action="/success">
+                <form name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field">
                     <input type="hidden" name="form-name" value="contact">
                     <p class="hidden">
                         <label>Don’t fill this out: <input name="bot-field"></label>
@@ -154,18 +154,29 @@
             const form = document.querySelector('form[name="contact"]');
             const errorMessage = document.getElementById('form-error-message');
             const successPopup = document.getElementById('success-popup');
-            // Deixa a Netlify processar nativamente - sem preventDefault ou fetch
-            // Intercepta o redirecionamento pra /success (sucesso real)
-            if (window.location.pathname === '/success') {
-                successPopup.classList.remove('hidden');
-                setTimeout(() => {
-                    window.location.href = 'index.html#tools';
-                }, 2000);
-                form.reset();
-            } else if (window.location.pathname.includes('contact')) {
-                // Se não redirecionou, assume falha e mostra erro
-                errorMessage.style.display = 'block';
-            }
+            form.addEventListener('submit', e => {
+                e.preventDefault();
+                const formData = new FormData(form);
+                fetch('/', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body: new URLSearchParams(formData).toString(),
+                })
+                .then(response => {
+                    if (response.ok) {
+                        successPopup.classList.remove('hidden');
+                        setTimeout(() => {
+                            window.location.href = 'index.html#tools';
+                        }, 2000);
+                        form.reset();
+                    } else {
+                        errorMessage.style.display = 'block';
+                    }
+                })
+                .catch(() => {
+                    errorMessage.style.display = 'block';
+                });
+            });
         });
     </script>
 </body>
