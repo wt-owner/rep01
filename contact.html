@@ -49,6 +49,10 @@
             gap: 0.5rem;
         }
         .tool-button:hover { background-color: var(--accent-hover); }
+        .tool-button:disabled {
+            background-color: #4B5563;
+            cursor: not-allowed;
+        }
         .adsense-placeholder {
             display: flex;
             align-items: center;
@@ -120,6 +124,14 @@
         }
         .mobile-menu-closed {
             transform: translateX(100%);
+        }
+        #form-error-message {
+            background-color: #991b1b;
+            color: white;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin-top: 1rem;
+            text-align: center;
         }
     </style>
 </head>
@@ -193,10 +205,13 @@
                         <label for="message" class="block text-sm font-medium mb-1">Message</label>
                         <textarea name="message" id="message" rows="5" required class="w-full px-4 py-2 bg-gray-700 text-white rounded-md border border-gray-600 focus:outline-none focus:ring-2 focus:ring-[var(--accent-color)]"></textarea>
                     </div>
-                    <button type="submit" class="tool-button w-1/2 mx-auto">Send Message</button>
+                    <button type="submit" class="tool-button w-1/2 mx-auto" id="submit-button">Send Message</button>
                 </form>
                 <div id="form-success-message" class="hidden mt-4 text-center p-4 rounded-md" style="background-color: #15803d; color: white;">
                     Thank you! Your message has been sent successfully.
+                </div>
+                <div id="form-error-message" class="hidden mt-4 text-center p-4 rounded-md" style="background-color: #991b1b; color: white;">
+                    Error: Failed to send your message. Please try again later.
                 </div>
             </div>
         </main>
@@ -239,23 +254,40 @@
                 mobileMenu.classList.remove('mobile-menu-open');
                 mobileMenu.classList.add('mobile-menu-closed');
             });
-            // Netlify Forms Success Message
+            // Netlify Forms Submission
             const form = document.querySelector('form[name="contact"]');
+            const submitButton = document.getElementById('submit-button');
             const successMessage = document.getElementById('form-success-message');
+            const errorMessage = document.getElementById('form-error-message');
             form.addEventListener('submit', e => {
                 e.preventDefault();
+                submitButton.disabled = true;
+                submitButton.textContent = 'Sending...';
+                successMessage.classList.add('hidden');
+                errorMessage.classList.add('hidden');
                 const myForm = e.target;
                 const formData = new FormData(myForm);
-                fetch("/", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                fetch('/', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
                     body: new URLSearchParams(formData).toString(),
                 })
-                .then(() => {
-                    successMessage.classList.remove('hidden');
-                    form.reset();
+                .then(response => {
+                    if (response.ok) {
+                        successMessage.classList.remove('hidden');
+                        form.reset();
+                    } else {
+                        throw new Error('Submission failed');
+                    }
                 })
-                .catch((error) => alert(error));
+                .catch(error => {
+                    errorMessage.classList.remove('hidden');
+                    console.error('Form submission error:', error);
+                })
+                .finally(() => {
+                    submitButton.disabled = false;
+                    submitButton.textContent = 'Send Message';
+                });
             });
         });
     </script>

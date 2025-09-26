@@ -49,6 +49,11 @@
             gap: 0.5rem;
         }
         .tool-button:hover { background-color: var(--accent-hover); }
+        .tool-button img {
+            width: 1em;
+            height: 1em;
+            fill: #111827; /* Black color for the GitHub cat icon */
+        }
         .adsense-placeholder {
             display: flex;
             align-items: center;
@@ -171,9 +176,12 @@
                 <div class="adsense-placeholder mt-8"><span>Ad Space (Responsive)</span></div>
                 <div class="mt-6 text-base sm:text-lg" style="color: var(--text-secondary);">
                     <p>The basic template kit that composes this project's architecture and the platform's construction guide are available on GitHub under the MIT open-source license. We believe in transparency and community, so you can explore, contribute, or use the provided content for your own projects.</p>
-                    <p class="mt-4">To download the content, click the button below.</p>
+                  
                 </div>
-                <a href="#" class="tool-button mt-6">Get WhizzyTools on GitHub</a>
+                <a href="https://github.com/whizzyman/whizzytools.git" target="_blank" class="tool-button mt-6">
+                    <img src="assets/images/invertocatlogo.svg" alt="GitHub Logo">
+                    Open Repository
+                </a>
             </div>
             <div class="adsense-placeholder max-w-xs min-h-[250px]"><span>Ad Space (300x250)</span></div>
         </main>

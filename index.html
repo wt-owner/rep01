@@ -105,6 +105,20 @@
                 min-height: 250px;
             }
         }
+        @media screen and (min-width: 1024px) {
+            .tool-grid {
+                display: grid;
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+                gap: 2rem;
+            }
+            .tool-grid > .tool-card {
+                height: 240px; /* Fixed height matching tallest card in first row */
+                align-self: center; /* Vertically center cards */
+            }
+            .tool-grid > .adsense-placeholder {
+                align-self: center; /* Vertically center ads */
+            }
+        }
         .mobile-menu {
             transition: transform 0.3s ease-in-out;
         }
@@ -172,7 +186,7 @@
                 <p class="mt-4 max-w-xl mx-auto text-center text-base sm:text-lg" style="color: var(--text-secondary);">
                     Select a tool to get started. More are being added all the time!
                 </p>
-                <div class="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch">
+                <div class="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 tool-grid">
                     <a href="image-to-pdf.html" class="tool-card rounded-xl p-6">
                         <div class="flex items-center gap-4 mb-4">
                             <div class="p-3 rounded-lg" style="background-color: rgba(34, 211, 238, 0.1);">
